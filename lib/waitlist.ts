@@ -85,6 +85,55 @@ async function deliverGhl(email: string, source: string) {
   }
 }
 
+async function notifyOwner(signupEmail: string, source: string) {
+  const to = process.env.WAITLIST_NOTIFY_EMAIL;
+  if (!to) return;
+
+  const subject = "Waiting list";
+  const text = `${signupEmail}\n${source}`;
+  const mailgunKey = process.env.MAILGUN_API_KEY;
+  const mailgunDomain = process.env.MAILGUN_DOMAIN ?? "explore.yoga";
+  const resend = process.env.RESEND_API_KEY;
+
+  if (mailgunKey) {
+    const host =
+      process.env.MAILGUN_REGION === "eu"
+        ? "api.eu.mailgun.net"
+        : "api.mailgun.net";
+    const res = await fetch(`https://${host}/v3/${mailgunDomain}/messages`, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${Buffer.from(`api:${mailgunKey}`).toString("base64")}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        from: `explore.yoga <waitlist@${mailgunDomain}>`,
+        to,
+        subject,
+        text,
+      }),
+    });
+    if (!res.ok) {
+      throw new Error(`mailgun ${res.status}`);
+    }
+    return;
+  }
+
+  if (resend) {
+    await postJson(
+      "https://api.resend.com/emails",
+      {
+        from:
+          process.env.RESEND_FROM ?? "explore.yoga <waitlist@explore.yoga>",
+        to: [to],
+        subject,
+        text,
+      },
+      { Authorization: `Bearer ${resend}` },
+    );
+  }
+}
+
 async function deliver(email: string, source: string) {
   const jobs: Promise<unknown>[] = [];
   const webhook = process.env.WAITLIST_WEBHOOK_URL;
@@ -92,8 +141,6 @@ async function deliver(email: string, source: string) {
   const kitForm = process.env.KIT_FORM_ID;
   const ckKey = process.env.CONVERTKIT_API_KEY;
   const ckForm = process.env.CONVERTKIT_FORM_ID;
-  const resend = process.env.RESEND_API_KEY;
-  const notify = process.env.WAITLIST_NOTIFY_EMAIL;
   const ghlKey = process.env.GHL_API_KEY;
   const ghlLocation = process.env.GHL_LOCATION_ID;
 
@@ -124,34 +171,20 @@ async function deliver(email: string, source: string) {
     );
   }
 
-  if (resend && notify) {
-    jobs.push(
-      postJson(
-        "https://api.resend.com/emails",
-        {
-          from: "explore.yoga <waitlist@explore.yoga>",
-          to: [notify],
-          subject: "Waiting list",
-          text: `${email}\n${source}`,
-        },
-        { Authorization: `Bearer ${resend}` },
-      ),
+  if (jobs.length > 0) {
+    await Promise.all(jobs);
+  } else {
+    const dir = process.env.VERCEL
+      ? "/tmp/explore-yoga"
+      : path.join(process.cwd(), "data");
+    await mkdir(dir, { recursive: true });
+    await appendFile(
+      path.join(dir, "waitlist.jsonl"),
+      `${JSON.stringify({ email, source, at: new Date().toISOString() })}\n`,
     );
   }
 
-  if (jobs.length > 0) {
-    await Promise.all(jobs);
-    return;
-  }
-
-  const dir = process.env.VERCEL
-    ? "/tmp/explore-yoga"
-    : path.join(process.cwd(), "data");
-  await mkdir(dir, { recursive: true });
-  await appendFile(
-    path.join(dir, "waitlist.jsonl"),
-    `${JSON.stringify({ email, source, at: new Date().toISOString() })}\n`,
-  );
+  await notifyOwner(email, source).catch(() => {});
 }
 
 export async function joinWaitlist(
