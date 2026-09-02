@@ -115,7 +115,9 @@ export default function Home() {
                 <WaitlistForm source="hero" />
                 <p className="mt-3 max-w-md font-serif text-[0.95rem] leading-relaxed text-quiet italic">
                   You&apos;ll get the dates, the format and the price before
-                  they&apos;re public. Nothing in between.
+                  they&apos;re public. Nothing in between. Leaving an email
+                  doesn&apos;t commit you. I&apos;ll send the details. You can
+                  sit with them.
                 </p>
               </div>
             </div>
@@ -324,6 +326,10 @@ export default function Home() {
             </p>
             <div className="mt-10 max-w-xl">
               <WaitlistForm source="close" />
+              <p className="mt-3 max-w-md font-serif text-[0.95rem] leading-relaxed text-quiet italic">
+                Leaving an email doesn&apos;t commit you. I&apos;ll send the
+                details. You can sit with them.
+              </p>
             </div>
           </section>
         </div>
