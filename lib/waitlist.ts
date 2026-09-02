@@ -20,6 +20,8 @@ function rateLimited(ip: string) {
   return false;
 }
 
+const GHL_VERSION = "2021-07-28";
+
 async function postJson(url: string, body: unknown, extra?: HeadersInit) {
   const res = await fetch(url, {
     method: "POST",
@@ -28,6 +30,58 @@ async function postJson(url: string, body: unknown, extra?: HeadersInit) {
   });
   if (!res.ok) {
     throw new Error(`upstream ${res.status}`);
+  }
+}
+
+async function deliverGhl(email: string, source: string) {
+  const token = process.env.GHL_API_KEY;
+  const locationId = process.env.GHL_LOCATION_ID;
+  if (!token || !locationId) return;
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Version: GHL_VERSION,
+    "Content-Type": "application/json",
+    "Location-Id": locationId,
+  };
+
+  const upsertRes = await fetch(
+    "https://services.leadconnectorhq.com/contacts/upsert",
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        locationId,
+        email,
+        source: "explore.yoga",
+      }),
+    },
+  );
+  if (!upsertRes.ok) {
+    throw new Error(`ghl upsert ${upsertRes.status}`);
+  }
+
+  const data = (await upsertRes.json()) as { contact?: { id?: string } };
+  const id = data.contact?.id;
+  if (!id) {
+    throw new Error("ghl upsert missing id");
+  }
+
+  const tags = ["explore.yoga waitlist"];
+  if (source === "hero" || source === "close") {
+    tags.push(`waitlist-${source}`);
+  }
+
+  const tagRes = await fetch(
+    `https://services.leadconnectorhq.com/contacts/${id}/tags`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ tags }),
+    },
+  );
+  if (!tagRes.ok) {
+    throw new Error(`ghl tags ${tagRes.status}`);
   }
 }
 
@@ -40,6 +94,12 @@ async function deliver(email: string, source: string) {
   const ckForm = process.env.CONVERTKIT_FORM_ID;
   const resend = process.env.RESEND_API_KEY;
   const notify = process.env.WAITLIST_NOTIFY_EMAIL;
+  const ghlKey = process.env.GHL_API_KEY;
+  const ghlLocation = process.env.GHL_LOCATION_ID;
+
+  if (ghlKey && ghlLocation) {
+    jobs.push(deliverGhl(email, source));
+  }
 
   if (webhook) {
     jobs.push(postJson(webhook, { email, source, list: "explore.yoga" }));
