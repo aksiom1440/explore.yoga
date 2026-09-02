@@ -100,7 +100,14 @@ async function deliver(email: string, source: string) {
   }
 
   if (webhook) {
-    jobs.push(postJson(webhook, { email, source, list: "explore.yoga" }));
+    jobs.push(
+      postJson(webhook, {
+        email,
+        source,
+        list: "explore.yoga",
+        consent: true,
+      }),
+    );
   }
 
   if (kitKey && kitForm) {
@@ -133,7 +140,7 @@ async function deliver(email: string, source: string) {
   await mkdir(dir, { recursive: true });
   await appendFile(
     path.join(dir, "waitlist.jsonl"),
-    `${JSON.stringify({ email, source, at: new Date().toISOString() })}\n`,
+    `${JSON.stringify({ email, source, consent: true, at: new Date().toISOString() })}\n`,
   );
 }
 
@@ -152,6 +159,10 @@ export async function joinWaitlist(
 
   if (!EMAIL.test(email)) {
     return { ok: false, message: "That doesn't look like an email address." };
+  }
+
+  if (String(formData.get("consent") ?? "") !== "yes") {
+    return { ok: false, message: "Allow the emails first." };
   }
 
   const ip =

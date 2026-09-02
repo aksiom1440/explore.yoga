@@ -21,8 +21,11 @@ Join the waiting list
 **Form placeholder**
 your email
 
+**Form consent**
+I allow email about the explore.yoga teacher training.
+
 **Under the form**
-You'll get the dates, the format and the price before they're public. Nothing in between.
+You'll get the dates, the format and the price before they're public. Nothing in between. Leaving an email doesn't commit you. I'll send the details. You can sit with them.
 
 ---
 
@@ -154,5 +157,6 @@ For personal guidance and initiation into the tradition: ancientscience.com
 
 You're on the list.
 That doesn't look like an email address.
+Allow the emails first.
 Wait a moment, then try once more.
 Couldn't reach the list. Try again.

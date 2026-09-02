@@ -51,6 +51,23 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
           Join the waiting list
         </button>
       </div>
+      <label
+        htmlFor={`consent-${source}`}
+        className="mt-3 flex max-w-md cursor-pointer items-start gap-2.5 font-serif text-[0.9rem] leading-snug text-quiet"
+      >
+        <input
+          id={`consent-${source}`}
+          name="consent"
+          type="checkbox"
+          value="yes"
+          required
+          disabled={pending}
+          className="mt-[0.2em] size-4 shrink-0 cursor-pointer accent-signal disabled:opacity-60"
+        />
+        <span>
+          I allow email about the explore.yoga teacher training.
+        </span>
+      </label>
       {state && !state.ok ? (
         <p className="mt-3 font-ui text-sm text-signal" role="alert">
           {state.message}
