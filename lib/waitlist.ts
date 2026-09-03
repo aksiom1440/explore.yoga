@@ -9,6 +9,13 @@ export type WaitlistState = {
   message: string;
 } | null;
 
+type Place = {
+  email: string;
+  name: string;
+  background: string;
+  source: string;
+};
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const seen = new Map<string, number>();
 
@@ -18,6 +25,14 @@ function rateLimited(ip: string) {
   if (now - last < 4000) return true;
   seen.set(ip, now);
   return false;
+}
+
+function splitName(name: string) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  return {
+    firstName: parts[0] ?? "",
+    lastName: parts.slice(1).join(" "),
+  };
 }
 
 const GHL_VERSION = "2021-07-28";
@@ -33,7 +48,7 @@ async function postJson(url: string, body: unknown, extra?: HeadersInit) {
   }
 }
 
-async function deliverGhl(email: string, source: string) {
+async function deliverGhl(place: Place) {
   const token = process.env.GHL_API_KEY;
   const locationId = process.env.GHL_LOCATION_ID;
   if (!token || !locationId) return;
@@ -45,6 +60,8 @@ async function deliverGhl(email: string, source: string) {
     "Location-Id": locationId,
   };
 
+  const { firstName, lastName } = splitName(place.name);
+
   const upsertRes = await fetch(
     "https://services.leadconnectorhq.com/contacts/upsert",
     {
@@ -52,7 +69,10 @@ async function deliverGhl(email: string, source: string) {
       headers,
       body: JSON.stringify({
         locationId,
-        email,
+        email: place.email,
+        name: place.name,
+        firstName,
+        lastName: lastName || undefined,
         source: "explore.yoga",
       }),
     },
@@ -68,9 +88,9 @@ async function deliverGhl(email: string, source: string) {
   }
 
   const tags = ["explore.yoga waitlist", "explore.yoga place"];
-  if (source === "hero" || source === "close") {
-    tags.push(`waitlist-${source}`);
-    tags.push(`place-${source}`);
+  if (place.source === "hero" || place.source === "close") {
+    tags.push(`waitlist-${place.source}`);
+    tags.push(`place-${place.source}`);
   }
 
   const tagRes = await fetch(
@@ -84,9 +104,23 @@ async function deliverGhl(email: string, source: string) {
   if (!tagRes.ok) {
     throw new Error(`ghl tags ${tagRes.status}`);
   }
+
+  const noteRes = await fetch(
+    `https://services.leadconnectorhq.com/contacts/${id}/notes`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        body: `Asked for a place (${place.source})\n\n${place.background}`,
+      }),
+    },
+  );
+  if (!noteRes.ok) {
+    // Contact is already stored; a missing note must not block the ask.
+  }
 }
 
-async function deliver(email: string, source: string) {
+async function deliver(place: Place) {
   const jobs: Promise<unknown>[] = [];
   const webhook = process.env.WAITLIST_WEBHOOK_URL;
   const kitKey = process.env.KIT_API_KEY;
@@ -97,17 +131,18 @@ async function deliver(email: string, source: string) {
   const ghlLocation = process.env.GHL_LOCATION_ID;
 
   if (ghlKey && ghlLocation) {
-    jobs.push(deliverGhl(email, source));
+    jobs.push(deliverGhl(place));
   }
 
   if (webhook) {
     jobs.push(
       postJson(webhook, {
-        email,
-        source,
+        email: place.email,
+        name: place.name,
+        background: place.background,
+        source: place.source,
         list: "explore.yoga",
         intent: "place",
-        consent: true,
       }),
     );
   }
@@ -116,7 +151,10 @@ async function deliver(email: string, source: string) {
     jobs.push(
       postJson(
         `https://api.kit.com/v4/forms/${kitForm}/subscribers`,
-        { email_address: email },
+        {
+          email_address: place.email,
+          first_name: splitName(place.name).firstName,
+        },
         { "X-Kit-Api-Key": kitKey },
       ),
     );
@@ -126,7 +164,8 @@ async function deliver(email: string, source: string) {
     jobs.push(
       postJson(`https://api.convertkit.com/v3/forms/${ckForm}/subscribe`, {
         api_key: ckKey,
-        email,
+        email: place.email,
+        first_name: splitName(place.name).firstName,
       }),
     );
   }
@@ -142,7 +181,7 @@ async function deliver(email: string, source: string) {
   await mkdir(dir, { recursive: true });
   await appendFile(
     path.join(dir, "waitlist.jsonl"),
-    `${JSON.stringify({ email, source, intent: "place", consent: true, at: new Date().toISOString() })}\n`,
+    `${JSON.stringify({ ...place, intent: "place", at: new Date().toISOString() })}\n`,
   );
 }
 
@@ -160,14 +199,23 @@ export async function joinWaitlist(
   const email = String(formData.get("email") ?? "")
     .trim()
     .toLowerCase();
+  const name = String(formData.get("name") ?? "").trim();
+  const background = String(formData.get("background") ?? "").trim();
   const source = String(formData.get("source") ?? "unknown");
+
+  if (name.length < 2) {
+    return { ok: false, message: "A name helps me write back." };
+  }
 
   if (!EMAIL.test(email)) {
     return { ok: false, message: "That doesn't look like an email address." };
   }
 
-  if (String(formData.get("consent") ?? "") !== "yes") {
-    return { ok: false, message: "Allow the emails first." };
+  if (background.length < 12) {
+    return {
+      ok: false,
+      message: "A line about you, then I can write back.",
+    };
   }
 
   const ip =
@@ -178,7 +226,7 @@ export async function joinWaitlist(
   }
 
   try {
-    await deliver(email, source);
+    await deliver({ email, name, background, source });
     return {
       ok: true,
       message: "I'll send the format and the price. You can sit with them.",

@@ -114,8 +114,8 @@ export default function Home() {
                 <WaitlistForm source="hero" />
                 <p className="mt-3 max-w-md font-serif text-[0.95rem] leading-relaxed text-quiet italic">
                   It starts the Monday after the group fills. I&apos;ll send
-                  the format and the price. Leaving an email doesn&apos;t take
-                  the place. You sit with the terms.
+                  the format and the price. Asking doesn&apos;t take the
+                  place. You sit with the terms.
                 </p>
               </div>
             </div>
@@ -344,7 +344,7 @@ export default function Home() {
             <div className="mt-10 max-w-xl">
               <WaitlistForm source="close" />
               <p className="mt-3 max-w-md font-serif text-[0.95rem] leading-relaxed text-quiet italic">
-                Leaving an email doesn&apos;t take the place.
+                Asking doesn&apos;t take the place.
               </p>
             </div>
           </section>

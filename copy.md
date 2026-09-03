@@ -25,14 +25,16 @@ A group of twelve is forming.
 **Form button**
 Ask for a place
 
-**Form placeholder**
+**Form fields**
+your name
 your email
+what you've been teaching, or why you're writing
 
-**Form consent**
-I allow email about the explore.yoga teacher training.
+**Under the button**
+I'll write back at this address.
 
 **Under the form**
-It starts the Monday after the group fills. I'll send the format and the price. Leaving an email doesn't take the place. You sit with the terms.
+It starts the Monday after the group fills. I'll send the format and the price. Asking doesn't take the place. You sit with the terms.
 
 ---
 
@@ -168,7 +170,7 @@ A group of twelve is forming.
 I'll send the format and the price. You sit with them. A place is taken when you take it.
 
 **Under the form**
-Leaving an email doesn't take the place.
+Asking doesn't take the place.
 
 ---
 
@@ -181,7 +183,8 @@ For personal guidance and initiation into the tradition: ancientscience.com
 ## Form messages
 
 I'll send the format and the price. You can sit with them.
+A name helps me write back.
 That doesn't look like an email address.
-Allow the emails first.
+A line about you, then I can write back.
 Wait a moment, then try once more.
 Couldn't send that. Try again.

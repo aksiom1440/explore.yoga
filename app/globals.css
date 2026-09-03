@@ -84,6 +84,8 @@ input:-webkit-autofill:focus {
   background: var(--rule);
 }
 
-input[type="email"]::placeholder {
+input[type="email"]::placeholder,
+input[type="text"]::placeholder,
+textarea::placeholder {
   color: color-mix(in oklab, var(--quiet) 80%, var(--ink));
 }

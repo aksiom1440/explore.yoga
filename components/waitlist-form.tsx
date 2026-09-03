@@ -3,6 +3,9 @@
 import { useActionState } from "react";
 import { joinWaitlist, type WaitlistState } from "@/lib/waitlist";
 
+const field =
+  "w-full border border-rule bg-field-2/60 px-4 font-ui text-base text-ink placeholder:italic disabled:opacity-60";
+
 export function WaitlistForm({ source }: { source: "hero" | "close" }) {
   const [state, action, pending] = useActionState<WaitlistState, FormData>(
     joinWaitlist,
@@ -28,7 +31,21 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
         className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
       />
       <input type="hidden" name="source" value={source} />
-      <div className="flex w-full flex-col gap-2 sm:flex-row sm:gap-2">
+      <div className="flex w-full flex-col gap-2">
+        <label className="sr-only" htmlFor={`name-${source}`}>
+          Name
+        </label>
+        <input
+          id={`name-${source}`}
+          name="name"
+          type="text"
+          autoComplete="name"
+          required
+          maxLength={80}
+          placeholder="your name"
+          disabled={pending}
+          className={`h-12 min-h-12 ${field}`}
+        />
         <label className="sr-only" htmlFor={`email-${source}`}>
           Email
         </label>
@@ -41,33 +58,34 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
           required
           placeholder="your email"
           disabled={pending}
-          className="h-12 min-h-12 w-full flex-1 border border-rule bg-field-2/60 px-4 font-ui text-base text-ink placeholder:italic disabled:opacity-60"
+          className={`h-12 min-h-12 ${field}`}
         />
-        <button
-          type="submit"
-          disabled={pending}
-          className="h-12 min-h-12 shrink-0 bg-paper px-5 font-ui text-[0.8rem] font-medium tracking-[0.04em] text-field transition-colors hover:bg-signal disabled:opacity-60 sm:px-6"
-        >
-          Ask for a place
-        </button>
-      </div>
-      <label
-        htmlFor={`consent-${source}`}
-        className="mt-3 flex max-w-md cursor-pointer items-start gap-2.5 font-serif text-[0.9rem] leading-snug text-quiet"
-      >
-        <input
-          id={`consent-${source}`}
-          name="consent"
-          type="checkbox"
-          value="yes"
+        <label className="sr-only" htmlFor={`background-${source}`}>
+          About you
+        </label>
+        <textarea
+          id={`background-${source}`}
+          name="background"
           required
+          rows={3}
+          maxLength={2000}
+          placeholder="what you've been teaching, or why you're writing"
           disabled={pending}
-          className="mt-[0.2em] size-4 shrink-0 cursor-pointer accent-signal disabled:opacity-60"
+          className={`min-h-[5.5rem] resize-y py-3 ${field}`}
         />
-        <span>
-          I allow email about the explore.yoga teacher training.
-        </span>
-      </label>
+        <div>
+          <button
+            type="submit"
+            disabled={pending}
+            className="h-12 min-h-12 bg-paper px-5 font-ui text-[0.8rem] font-medium tracking-[0.04em] text-field transition-colors hover:bg-signal disabled:opacity-60 sm:px-6"
+          >
+            Ask for a place
+          </button>
+        </div>
+      </div>
+      <p className="mt-3 max-w-md font-serif text-[0.9rem] leading-snug text-quiet italic">
+        I&apos;ll write back at this address.
+      </p>
       {state && !state.ok ? (
         <p className="mt-3 font-ui text-sm text-signal" role="alert">
           {state.message}
