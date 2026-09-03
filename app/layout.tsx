@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, Newsreader } from "next/font/google";
+import { formingLine } from "@/lib/intake";
 import "./globals.css";
 
 const serif = Newsreader({
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s · explore.yoga",
   },
   description:
-    "Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. Next intake: late 2026.",
+    `Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
   applicationName: "explore.yoga",
   authors: [{ name: "Miska Käppi" }],
   openGraph: {
@@ -34,13 +35,13 @@ export const metadata: Metadata = {
     siteName: "explore.yoga",
     title: "You were working with the body you could see.",
     description:
-      "Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it.",
+      `Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
   },
   twitter: {
     card: "summary_large_image",
     title: "You were working with the body you could see.",
     description:
-      "Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it.",
+      `Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
   },
   robots: { index: true, follow: true },
 };

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { WaitlistForm } from "@/components/waitlist-form";
+import { formingLine } from "@/lib/intake";
 
 function Logo() {
   return (
@@ -67,10 +68,10 @@ export default function Home() {
   return (
     <>
       <a
-        href="#list"
+        href="#place"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-paper focus:px-3 focus:py-2 focus:text-field"
       >
-        Skip to the waiting list
+        Skip to ask for a place
       </a>
 
       <main>
@@ -106,18 +107,15 @@ export default function Home() {
                   left seeing yoga differently, and they entered the tradition.
                 </p>
                 <p className="mt-6 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal sm:mt-8">
-                  <strong className="font-medium">
-                    Next intake: late 2026.
-                  </strong>
+                  <strong className="font-medium">{formingLine()}</strong>
                 </p>
               </div>
-              <div id="list" className="w-full max-w-xl pb-2 sm:pb-6">
+              <div id="place" className="w-full max-w-xl pb-2 sm:pb-6">
                 <WaitlistForm source="hero" />
                 <p className="mt-3 max-w-md font-serif text-[0.95rem] leading-relaxed text-quiet italic">
-                  You&apos;ll get the dates, the format and the price before
-                  they&apos;re public. Nothing in between. Leaving an email
-                  doesn&apos;t commit you. I&apos;ll send the details. You can
-                  sit with them.
+                  It starts the Monday after the group fills. I&apos;ll send
+                  the format and the price. Leaving an email doesn&apos;t take
+                  the place. You sit with the terms.
                 </p>
               </div>
             </div>
@@ -165,6 +163,25 @@ export default function Home() {
               </strong>{" "}
               If that&apos;s what you need, this isn&apos;t it.
             </p>
+          </section>
+
+          <section className="border-t border-rule py-16 sm:py-24">
+            <h2 className="font-serif text-[1.65rem] font-light tracking-[-0.02em] sm:text-3xl">
+              How you enter
+            </h2>
+            <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
+              <p className="measure">The training is in session.</p>
+              <p className="measure">
+                You come in with a group of twelve. When those twelve are in,
+                that group starts the following Monday. A new group of twelve
+                opens the same day.
+              </p>
+              <p className="measure">
+                The live room is mixed. People further along and people just
+                in work in the same session.
+              </p>
+              <p className="measure">You finish when you can teach it.</p>
+            </div>
           </section>
         </div>
 
@@ -318,17 +335,16 @@ export default function Home() {
           <section className="border-t border-rule py-16 sm:py-28">
             <Rule />
             <p className="prose-line measure mt-10 text-[1.35rem] font-light leading-[1.45] tracking-[-0.02em] sm:text-[1.7rem] sm:leading-[1.35]">
-              The next training runs in late 2026.
+              {formingLine()}
             </p>
             <p className="prose-line measure mt-6 text-[1.12rem] font-light leading-[1.6] sm:text-[1.22rem]">
-              The list hears first: dates, format, price, before any of it goes
-              public.
+              I&apos;ll send the format and the price. You sit with them. A
+              place is taken when you take it.
             </p>
             <div className="mt-10 max-w-xl">
               <WaitlistForm source="close" />
               <p className="mt-3 max-w-md font-serif text-[0.95rem] leading-relaxed text-quiet italic">
-                Leaving an email doesn&apos;t commit you. I&apos;ll send the
-                details. You can sit with them.
+                Leaving an email doesn&apos;t take the place.
               </p>
             </div>
           </section>

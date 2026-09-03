@@ -48,7 +48,7 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
           disabled={pending}
           className="h-12 min-h-12 shrink-0 bg-paper px-5 font-ui text-[0.8rem] font-medium tracking-[0.04em] text-field transition-colors hover:bg-signal disabled:opacity-60 sm:px-6"
         >
-          Join the waiting list
+          Ask for a place
         </button>
       </div>
       <label

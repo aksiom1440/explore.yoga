@@ -2,6 +2,11 @@
 
 Edit this file. When you're done, say "päivitä sivu".
 
+Group size and remaining places live in `lib/intake.ts` (`GROUP_SIZE`, `PLACES_LEFT`). The hero, the close, the metadata and the OG image all read from there.
+
+When someone takes a place, lower `PLACES_LEFT`.
+When the group fills, it starts the following Monday. Set `PLACES_LEFT` back to `GROUP_SIZE` for the next group.
+
 ---
 
 ## Hero
@@ -13,10 +18,12 @@ You were working with the body you could see.
 Over four hundred yoga teachers have studied with me. They left seeing yoga differently, and they entered the tradition.
 
 **Intake**
-Next intake: late 2026.
+A group of twelve is forming.
+
+(If places are left: "Five places left in the group that's forming." If full: "This group is full. The next one is opening.")
 
 **Form button**
-Join the waiting list
+Ask for a place
 
 **Form placeholder**
 your email
@@ -25,7 +32,7 @@ your email
 I allow email about the explore.yoga teacher training.
 
 **Under the form**
-You'll get the dates, the format and the price before they're public. Nothing in between. Leaving an email doesn't commit you. I'll send the details. You can sit with them.
+It starts the Monday after the group fills. I'll send the format and the price. Leaving an email doesn't take the place. You sit with the terms.
 
 ---
 
@@ -49,6 +56,21 @@ Asana, pranayama, bandha, mantra and meditation, as one system
 Repetition is the method. You will hear the same thing several ways on purpose.
 
 The certificate is mine, not Yoga Alliance's. It does not lead to RYT status. If that's what you need, this isn't it.
+
+---
+
+## How you enter
+
+**Heading**
+How you enter
+
+The training is in session.
+
+You come in with a group of twelve. When those twelve are in, that group starts the following Monday. A new group of twelve opens the same day.
+
+The live room is mixed. People further along and people just in work in the same session.
+
+You finish when you can teach it.
 
 ---
 
@@ -141,9 +163,12 @@ That's the direction I went. I'm still going.
 
 ## Close
 
-The next training runs in late 2026.
+A group of twelve is forming.
 
-The list hears first: dates, format, price, before any of it goes public.
+I'll send the format and the price. You sit with them. A place is taken when you take it.
+
+**Under the form**
+Leaving an email doesn't take the place.
 
 ---
 
@@ -155,8 +180,8 @@ For personal guidance and initiation into the tradition: ancientscience.com
 
 ## Form messages
 
-You're on the list.
+I'll send the format and the price. You can sit with them.
 That doesn't look like an email address.
 Allow the emails first.
 Wait a moment, then try once more.
-Couldn't reach the list. Try again.
+Couldn't send that. Try again.

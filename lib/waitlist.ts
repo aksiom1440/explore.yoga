@@ -67,9 +67,10 @@ async function deliverGhl(email: string, source: string) {
     throw new Error("ghl upsert missing id");
   }
 
-  const tags = ["explore.yoga waitlist"];
+  const tags = ["explore.yoga waitlist", "explore.yoga place"];
   if (source === "hero" || source === "close") {
     tags.push(`waitlist-${source}`);
+    tags.push(`place-${source}`);
   }
 
   const tagRes = await fetch(
@@ -105,6 +106,7 @@ async function deliver(email: string, source: string) {
         email,
         source,
         list: "explore.yoga",
+        intent: "place",
         consent: true,
       }),
     );
@@ -140,7 +142,7 @@ async function deliver(email: string, source: string) {
   await mkdir(dir, { recursive: true });
   await appendFile(
     path.join(dir, "waitlist.jsonl"),
-    `${JSON.stringify({ email, source, consent: true, at: new Date().toISOString() })}\n`,
+    `${JSON.stringify({ email, source, intent: "place", consent: true, at: new Date().toISOString() })}\n`,
   );
 }
 
@@ -149,7 +151,10 @@ export async function joinWaitlist(
   formData: FormData,
 ): Promise<WaitlistState> {
   if (String(formData.get("website") ?? "")) {
-    return { ok: true, message: "You're on the list." };
+    return {
+      ok: true,
+      message: "I'll send the format and the price. You can sit with them.",
+    };
   }
 
   const email = String(formData.get("email") ?? "")
@@ -174,8 +179,11 @@ export async function joinWaitlist(
 
   try {
     await deliver(email, source);
-    return { ok: true, message: "You're on the list." };
+    return {
+      ok: true,
+      message: "I'll send the format and the price. You can sit with them.",
+    };
   } catch {
-    return { ok: false, message: "Couldn't reach the list. Try again." };
+    return { ok: false, message: "Couldn't send that. Try again." };
   }
 }
