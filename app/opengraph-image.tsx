@@ -53,7 +53,7 @@ export default function OpenGraphImage() {
               maxWidth: 720,
             }}
           >
-            {PROGRAM_NAME}. {priceLine()}. {formingLine()}
+            {`${PROGRAM_NAME}. ${priceLine()}. ${formingLine()}`}
           </div>
         </div>
       </div>
