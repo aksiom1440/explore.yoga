@@ -83,9 +83,6 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
           </button>
         </div>
       </div>
-      <p className="mt-3 max-w-md font-serif text-[0.9rem] leading-snug text-quiet italic">
-        I&apos;ll write back at this address.
-      </p>
       {state && !state.ok ? (
         <p className="mt-3 font-ui text-sm text-signal" role="alert">
           {state.message}

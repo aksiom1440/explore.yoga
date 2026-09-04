@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { WaitlistForm } from "@/components/waitlist-form";
-import { formingLine } from "@/lib/intake";
+import { PROGRAM_NAME, formingLine, formNote, priceLine } from "@/lib/intake";
 
 function Logo() {
   return (
@@ -12,6 +12,16 @@ function Logo() {
       priority
       className="h-7 w-auto sm:h-8"
     />
+  );
+}
+
+function FormNote() {
+  return (
+    <div className="mt-3 max-w-md space-y-2 font-serif text-[0.95rem] leading-relaxed text-quiet">
+      {formNote.map((line) => (
+        <p key={line}>{line}</p>
+      ))}
+    </div>
   );
 }
 
@@ -71,7 +81,7 @@ export default function Home() {
         href="#place"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-paper focus:px-3 focus:py-2 focus:text-field"
       >
-        Skip to ask for a place
+        Skip to the Yoga Teacher Training form
       </a>
 
       <main>
@@ -107,16 +117,18 @@ export default function Home() {
                   left seeing yoga differently, and they entered the tradition.
                 </p>
                 <p className="mt-6 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal sm:mt-8">
-                  <strong className="font-medium">{formingLine()}</strong>
+                  <strong className="font-medium">{PROGRAM_NAME}</strong>
+                </p>
+                <p className="mt-2 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal">
+                  {formingLine()}
+                </p>
+                <p className="mt-2 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal">
+                  {priceLine()}
                 </p>
               </div>
               <div id="place" className="w-full max-w-xl pb-2 sm:pb-6">
                 <WaitlistForm source="hero" />
-                <p className="mt-3 max-w-md font-serif text-[0.95rem] leading-relaxed text-quiet italic">
-                  It starts the Monday after the group fills. I&apos;ll send
-                  the format and the price. Asking doesn&apos;t take the
-                  place. You sit with the terms.
-                </p>
+                <FormNote />
               </div>
             </div>
           </div>
@@ -172,9 +184,14 @@ export default function Home() {
             <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
               <p className="measure">The training is in session.</p>
               <p className="measure">
-                You come in with a group of twelve. When those twelve are in,
-                that group starts the following Monday. A new group of twelve
-                opens the same day.
+                You join a group of twelve. When twelve people have taken a
+                place, that group starts. A new group of twelve opens the same
+                day.
+              </p>
+              <p className="measure">
+                Live classes are once a week, at a set day and time, in
+                English. You get that day and time in the email, before you
+                take a place, so you can check it against your calendar.
               </p>
               <p className="measure">
                 The live room is mixed. People further along and people just
@@ -335,17 +352,17 @@ export default function Home() {
           <section className="border-t border-rule py-16 sm:py-28">
             <Rule />
             <p className="prose-line measure mt-10 text-[1.35rem] font-light leading-[1.45] tracking-[-0.02em] sm:text-[1.7rem] sm:leading-[1.35]">
+              {PROGRAM_NAME}
+            </p>
+            <p className="prose-line measure mt-4 text-[1.12rem] font-light leading-[1.6] sm:text-[1.22rem]">
               {formingLine()}
             </p>
-            <p className="prose-line measure mt-6 text-[1.12rem] font-light leading-[1.6] sm:text-[1.22rem]">
-              I&apos;ll send the format and the price. You sit with them. A
-              place is taken when you take it.
+            <p className="prose-line measure mt-4 text-[1.12rem] font-light leading-[1.6] sm:text-[1.22rem]">
+              {priceLine()}
             </p>
             <div className="mt-10 max-w-xl">
               <WaitlistForm source="close" />
-              <p className="mt-3 max-w-md font-serif text-[0.95rem] leading-relaxed text-quiet italic">
-                Asking doesn&apos;t take the place.
-              </p>
+              <FormNote />
             </div>
           </section>
         </div>

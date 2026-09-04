@@ -5,7 +5,9 @@ Edit this file. When you're done, say "päivitä sivu".
 Group size and remaining places live in `lib/intake.ts` (`GROUP_SIZE`, `PLACES_LEFT`). The hero, the close, the metadata and the OG image all read from there.
 
 When someone takes a place, lower `PLACES_LEFT`.
-When the group fills, it starts the following Monday. Set `PLACES_LEFT` back to `GROUP_SIZE` for the next group.
+When the group fills, it starts. Set `PLACES_LEFT` back to `GROUP_SIZE` for the next group.
+The product name is `PROGRAM_NAME` in `lib/intake.ts`.
+The price is `PRICE_EUROS` (shown as `priceLine()`).
 
 ---
 
@@ -18,7 +20,9 @@ You were working with the body you could see.
 Over four hundred yoga teachers have studied with me. They left seeing yoga differently, and they entered the tradition.
 
 **Intake**
+Yoga Teacher Training
 A group of twelve is forming.
+2,900 euros
 
 (If places are left: "Five places left in the group that's forming." If full: "This group is full. The next one is opening.")
 
@@ -30,11 +34,10 @@ your name
 your email
 what you've been teaching, or why you're writing
 
-**Under the button**
-I'll write back at this address.
-
 **Under the form**
-It starts the Monday after the group fills. I'll send the format and the price. Asking doesn't take the place. You sit with the terms.
+I will email you how the training works, and the weekly live day and time.
+This form does not reserve a place. You decide after that email.
+The group starts when twelve people have taken a place.
 
 ---
 
@@ -68,7 +71,9 @@ How you enter
 
 The training is in session.
 
-You come in with a group of twelve. When those twelve are in, that group starts the following Monday. A new group of twelve opens the same day.
+You join a group of twelve. When twelve people have taken a place, that group starts. A new group of twelve opens the same day.
+
+Live classes are once a week, at a set day and time, in English. You get that day and time in the email, before you take a place, so you can check it against your calendar.
 
 The live room is mixed. People further along and people just in work in the same session.
 
@@ -165,12 +170,15 @@ That's the direction I went. I'm still going.
 
 ## Close
 
+Yoga Teacher Training
+
 A group of twelve is forming.
 
-I'll send the format and the price. You sit with them. A place is taken when you take it.
+2,900 euros
 
-**Under the form**
-Asking doesn't take the place.
+I will email you how the training works, and the weekly live day and time.
+This form does not reserve a place. You decide after that email.
+The group starts when twelve people have taken a place.
 
 ---
 
@@ -182,7 +190,7 @@ For personal guidance and initiation into the tradition: ancientscience.com
 
 ## Form messages
 
-I'll send the format and the price. You can sit with them.
+I will email you how the training works, and the weekly live day and time.
 A name helps me write back.
 That doesn't look like an email address.
 A line about you, then I can write back.

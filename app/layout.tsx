@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, Newsreader } from "next/font/google";
-import { formingLine } from "@/lib/intake";
+import { PROGRAM_NAME, formingLine } from "@/lib/intake";
 import "./globals.css";
 
 const serif = Newsreader({
@@ -21,11 +21,11 @@ const ui = IBM_Plex_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://explore.yoga"),
   title: {
-    default: "You were working with the body you could see.",
+    default: PROGRAM_NAME,
     template: "%s · explore.yoga",
   },
   description:
-    `Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
+    `${PROGRAM_NAME} with Miska Käppi. Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
   applicationName: "explore.yoga",
   authors: [{ name: "Miska Käppi" }],
   openGraph: {
@@ -33,15 +33,15 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://explore.yoga",
     siteName: "explore.yoga",
-    title: "You were working with the body you could see.",
+    title: `${PROGRAM_NAME} · explore.yoga`,
     description:
-      `Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
+      `${PROGRAM_NAME} with Miska Käppi. Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "You were working with the body you could see.",
+    title: `${PROGRAM_NAME} · explore.yoga`,
     description:
-      `Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
+      `${PROGRAM_NAME} with Miska Käppi. Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
   },
   robots: { index: true, follow: true },
 };

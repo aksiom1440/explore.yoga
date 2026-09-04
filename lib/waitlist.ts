@@ -3,6 +3,7 @@
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { headers } from "next/headers";
+import { formSuccess } from "@/lib/intake";
 
 export type WaitlistState = {
   ok: boolean;
@@ -192,7 +193,7 @@ export async function joinWaitlist(
   if (String(formData.get("website") ?? "")) {
     return {
       ok: true,
-      message: "I'll send the format and the price. You can sit with them.",
+      message: formSuccess,
     };
   }
 
@@ -229,7 +230,7 @@ export async function joinWaitlist(
     await deliver({ email, name, background, source });
     return {
       ok: true,
-      message: "I'll send the format and the price. You can sit with them.",
+      message: formSuccess,
     };
   } catch {
     return { ok: false, message: "Couldn't send that. Try again." };

@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { formingLine } from "@/lib/intake";
+import { PROGRAM_NAME, formingLine, priceLine } from "@/lib/intake";
 
 export const alt = "You were working with the body you could see.";
 export const size = { width: 1200, height: 630 };
@@ -53,7 +53,7 @@ export default function OpenGraphImage() {
               maxWidth: 720,
             }}
           >
-            {formingLine()}
+            {PROGRAM_NAME}. {priceLine()}. {formingLine()}
           </div>
         </div>
       </div>
