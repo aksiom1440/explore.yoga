@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { IBM_Plex_Sans, Newsreader } from "next/font/google";
 import { PROGRAM_NAME, intakeLine } from "@/lib/intake";
 import "./globals.css";
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="relative min-h-full bg-field font-serif text-ink">
         <div className="grain" aria-hidden="true" />
         {children}
+        <Analytics />
       </body>
     </html>
   );
