@@ -35,28 +35,28 @@ const curriculum = [
 const learn = [
   {
     lead: "To read mind and body as one system.",
-    body: "Connective tissue is continuous. So is the argument about it. You stop treating a hip as a hip.",
+    body: "Connective tissue is one continuous web, and the tradition never split body from mind in the first place. You stop treating a hip as only a hip.",
   },
   {
     lead: "How to build an asana sequence from the ancient principles.",
-    body: "You build the sequence from the same principles the tradition uses for everything else.",
+    body: "The elements and doshas set the order, not habit. They are the same principles the tradition uses for everything else.",
   },
   {
     lead: "How to teach this to someone who came for a better backbend.",
     body: "Most won't ask you for prana. They can still feel that you help them in a way other teachers don't.",
   },
   {
-    lead: "How to hold a class that closes the conscious mind.",
-    body: "The thinking mind will run the room if you let it. You learn to build conditions where it stands down, so the student can change what sits underneath.",
+    lead: "How to hold a class where the thinking mind stands down.",
+    body: "The thinking mind will run the room if you let it. You learn to build the conditions where it goes quiet, so the student can change what sits underneath.",
   },
   {
     lead: "To know twenty times more than you say.",
-    body: "Even if you teach only asana, they can feel what you know and did not say.",
+    body: "Even if you only ever teach asana, your students feel what you know and leave unsaid.",
   },
 ];
 
 const comeIf = [
-  "you've taught for years and can still let a new model in",
+  "you've taught for years and are still open to a new model",
   "you're not planning to teach, which is how some of the best teachers I trained arrived",
   "you want the system around asana, not more asana",
   "you're willing to take the worldview with the practice",
@@ -103,8 +103,8 @@ export default function Home() {
                   see.
                 </h1>
                 <p className="prose-line mt-6 max-w-[42ch] text-[1.05rem] font-light leading-[1.55] text-ink/90 sm:mt-8 sm:max-w-[48ch] sm:text-xl sm:leading-[1.5]">
-                  Over four hundred yoga teachers have studied with me. They
-                  left seeing yoga differently, and they entered the tradition.
+                  This training is about what&apos;s underneath it. Over four
+                  hundred yoga teachers have studied with me.
                 </p>
                 <p className="mt-6 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal sm:mt-8">
                   <strong className="font-medium">{PROGRAM_NAME}</strong>
@@ -171,11 +171,13 @@ export default function Home() {
               How you enter
             </h2>
             <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
-              <p className="measure">The training is in session.</p>
               <p className="measure">
-                You join a group of twelve. When twelve people have taken a
-                place, that group starts. A new group of twelve opens the same
-                day.
+                The training is already running. New people join in groups of
+                twelve.
+              </p>
+              <p className="measure">
+                A group starts the day its last place is taken. The next group
+                opens that same day.
               </p>
               <p className="measure">
                 Live classes are once a week, at a set day and time, in
@@ -183,8 +185,8 @@ export default function Home() {
                 take a place, so you can check it against your calendar.
               </p>
               <p className="measure">
-                The live room is mixed. People further along and people just
-                in work in the same session.
+                The live room is mixed. People who joined months ago and people
+                who joined this week are in the same session.
               </p>
               <p className="measure">You finish when you can teach it.</p>
             </div>
@@ -216,13 +218,13 @@ export default function Home() {
             </h2>
             <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
               <p className="measure">
-                The classical model is coherent, it is old, and it produces a
-                practice that hangs together. You can test every part of it
-                yourself.
+                The classical model is old and coherent, and you can test every
+                part of it yourself.
               </p>
               <p className="measure">
                 Modern research sits next to that model. I will tell you which
-                sentences are the tradition&apos;s, and which are mine.
+                claims are the tradition&apos;s, which come from research, and
+                which are mine.
               </p>
               <p className="measure">
                 Ask me for the source. That is my job.
@@ -259,16 +261,16 @@ export default function Home() {
                     <strong className="font-medium">
                       you need a Yoga Alliance card for the gym.
                     </strong>{" "}
-                    Many of the best students I trained teach in gyms. I
-                    don&apos;t charge extra for the Alliance. I don&apos;t share
-                    their standards.
+                    Some gyms ask for one. I don&apos;t register with the
+                    Alliance: I don&apos;t share their standards, and I
+                    won&apos;t add their fee to your price. Many of the best
+                    students I trained teach in gyms anyway.
                   </li>
                   <li>
                     <strong className="font-medium">
                       you want it finished in a couple of months.
                     </strong>{" "}
-                    Becoming a yoga teacher in a couple of months is about as
-                    likely as becoming a violinist in a couple of months.
+                    Nobody becomes a violinist in a couple of months either.
                   </li>
                   <li>
                     <strong className="font-medium">
@@ -293,12 +295,15 @@ export default function Home() {
         <figure className="relative mx-auto w-full max-w-4xl px-5 sm:px-8 lg:px-12">
           <Image
             src="/latvia.jpeg"
-            alt="A training group in Latvia"
+            alt="Students waving in front of a thatched farmhouse"
             width={2000}
             height={1333}
             sizes="(max-width: 896px) 100vw, 896px"
             className="h-auto w-full"
           />
+          <figcaption className="mt-3 font-ui text-[0.78rem] tracking-[0.01em] text-quiet">
+            An earlier training group in Latvia.
+          </figcaption>
         </figure>
 
         <div className="mx-auto w-full max-w-3xl px-5 sm:px-8 lg:px-12">
@@ -318,8 +323,8 @@ export default function Home() {
                 reasons. <em>Because Krishna said so.</em> Not good enough.
               </p>
               <p className="measure">
-                Then there were teachers who worked by principles I knew from
-                science. Who argued back. Who showed their sources.
+                The rest were teachers who worked by principles I knew from
+                science. They argued back. They showed their sources.
               </p>
               <p className="measure">
                 Sooner or later, every one of them said the same word.
@@ -333,7 +338,9 @@ export default function Home() {
                 wrong that was.
               </p>
               <p className="measure">
-                That&apos;s the direction I went. I&apos;m still going.
+                That&apos;s the direction I went, and I&apos;m still going.
+                This training is what I found along the way, in the order I
+                wish I had found it.
               </p>
             </div>
           </section>

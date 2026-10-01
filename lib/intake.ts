@@ -6,7 +6,7 @@ export const PLACES_LEFT = 12;
 export const PRICE_EUROS = 2900;
 
 export function priceLine(amount = PRICE_EUROS): string {
-  return `${amount.toLocaleString("en-GB")} euros`;
+  return `${amount.toLocaleString("en-GB")} euros, or pay in instalments`;
 }
 
 const WORDS = [

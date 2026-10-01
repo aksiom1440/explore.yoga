@@ -1,24 +1,59 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import {
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { formNote } from "@/lib/intake";
 import { joinWaitlist, type WaitlistState } from "@/lib/waitlist";
+
+type Sent = Extract<WaitlistState, { ok: true }>;
 
 const field =
   "w-full border border-rule bg-field-2/60 px-4 font-ui text-base text-ink placeholder:italic disabled:opacity-60";
 
+// Once either form on the page has sent, both show the confirmation.
+let lastSent: Sent | null = null;
+const listeners = new Set<() => void>();
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+}
+
+async function send(prev: WaitlistState, formData: FormData) {
+  const next = await joinWaitlist(prev, formData);
+  if (next?.ok) {
+    lastSent = next;
+    listeners.forEach((listener) => listener());
+  }
+  return next;
+}
+
 export function WaitlistForm({ source }: { source: "hero" | "close" }) {
   const [state, action, pending] = useActionState<WaitlistState, FormData>(
-    joinWaitlist,
+    send,
     null,
   );
-  const [reopened, setReopened] = useState<WaitlistState>(null);
+  const shared = useSyncExternalStore(
+    subscribe,
+    () => lastSent,
+    () => null,
+  );
+  const [reopened, setReopened] = useState<Sent | null>(null);
   const thanks = useRef<HTMLDivElement>(null);
-  const sent = state?.ok === true && state !== reopened ? state : null;
+  const sent = shared !== reopened ? shared : null;
+  const typed = state?.fields ?? reopened?.fields;
 
   useEffect(() => {
-    if (sent) thanks.current?.focus();
-  }, [sent]);
+    // Only the form that was used takes focus.
+    if (sent && sent === state) thanks.current?.focus();
+  }, [sent, state]);
 
   if (sent) {
     const firstName = sent.fields.name.split(/\s+/)[0];
@@ -79,7 +114,7 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
             required
             maxLength={80}
             placeholder="your name"
-            defaultValue={state?.fields.name}
+            defaultValue={typed?.name}
             disabled={pending}
             className={`h-12 min-h-12 ${field}`}
           />
@@ -94,7 +129,7 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
             autoComplete="email"
             required
             placeholder="your email"
-            defaultValue={state?.fields.email}
+            defaultValue={typed?.email}
             autoFocus={reopened !== null}
             disabled={pending}
             className={`h-12 min-h-12 ${field}`}
@@ -109,7 +144,7 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
             rows={3}
             maxLength={2000}
             placeholder="what you've been teaching, or why you're writing"
-            defaultValue={state?.fields.background}
+            defaultValue={typed?.background}
             disabled={pending}
             className={`min-h-[5.5rem] resize-y py-3 ${field}`}
           />
