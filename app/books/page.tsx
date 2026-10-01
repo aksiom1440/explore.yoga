@@ -17,9 +17,14 @@ export default function BooksPage() {
   return (
     <>
       <main className="mx-auto w-full max-w-6xl px-5 pt-[max(1.15rem,env(safe-area-inset-top))] sm:px-8 lg:px-12">
-        <Link href="/" className="inline-block">
-          <Logo />
-        </Link>
+        <div className="flex items-center justify-between gap-4">
+          <Link href="/" className="inline-block">
+            <Logo />
+          </Link>
+          <a href="#place" className="font-ui text-[0.8rem] font-medium tracking-[0.04em] text-signal underline decoration-rule underline-offset-4 transition-colors hover:text-ink">
+            Ask for a place
+          </a>
+        </div>
 
         <header className="mx-auto max-w-2xl pb-12 pt-14 text-center sm:pb-16 sm:pt-20">
           <h1 className="font-serif text-[2.05rem] font-light leading-[1.12] tracking-[-0.028em] sm:text-5xl sm:leading-[1.08]">
@@ -81,7 +86,7 @@ export default function BooksPage() {
               How the training runs
             </Link>
           </p>
-          <div className="mt-10 max-w-xl">
+          <div id="place" className="mt-10 max-w-xl scroll-mt-8">
             <WaitlistForm source="books" />
           </div>
         </section>

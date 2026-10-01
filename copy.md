@@ -6,6 +6,10 @@ The page never states a group size or how many places are left. Whether places a
 
 The reading map at `/books` ("So you want to learn tantra yoga?") is drawn as a map: three doors merge into tantra, a spine of books with side roads leads down to "The studies have finally begun", and the path branches into mantra, the texts, hatha and medicine. "Around the path" has its own four branches. Everything lives in `lib/books.ts`: `via` is the line on the arrow into a book, `note` the caption above it. Its form tags asks as `place-books` in GoHighLevel.
 
+The reading map has its own share image (`app/books/opengraph-image.tsx`): the title, the three doors and "You're ready for tantra".
+
+Visits are counted with Vercel Web Analytics (no cookies). It only collects once Web Analytics is enabled in the Vercel project.
+
 The seller's details (name, registry code, VAT number, address, email, phone) are in `lib/company.ts`. The footer, the terms of sale and the privacy page read from there.
 The product name is `PROGRAM_NAME` in `lib/intake.ts`.
 The price is `PRICE_EUROS`. The six-payment plan is `ENROL_EUROS` plus `MONTHLY_EUROS` × `MONTHS` (shown as `priceLine()` in the hero and the close, and `paymentLine()` in How you enter).

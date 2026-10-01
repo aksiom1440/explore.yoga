@@ -46,8 +46,12 @@ export default function Privacy() {
         <li>
           <strong>When you visit the site:</strong> the server sees your IP
           address. The form keeps it briefly in memory to stop repeated
-          sending, and the host keeps short technical logs. The site uses no
-          cookies and no analytics.
+          sending, and the host keeps short technical logs. Visits are
+          counted with Vercel Web Analytics: the page, where the visit came
+          from, the country and the kind of device, without cookies and
+          without following you from one day to the next. Legal basis: my
+          legitimate interest in knowing how the site is used (article
+          6(1)(f)). The site uses no cookies.
         </li>
         <li>
           <strong>If you tick the box on the form:</strong> I also send you
@@ -65,7 +69,7 @@ export default function Privacy() {
       <ul>
         <li>HighLevel (LeadConnector), USA: stores messages and sends email.</li>
         <li>Stripe: takes payments.</li>
-        <li>Vercel, USA: hosts this site.</li>
+        <li>Vercel, USA: hosts this site and counts visits.</li>
         <li>
           The platform the training runs on, which I name in the email before
           you pay.
