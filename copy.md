@@ -2,10 +2,9 @@
 
 Edit this file. When you're done, say "päivitä sivu".
 
-Group size and remaining places live in `lib/intake.ts` (`GROUP_SIZE`, `PLACES_LEFT`). The hero, the close, the metadata and the OG image all read from there.
+The page never states a group size or how many places are left. Whether places are open is `INTAKE_OPEN` in `lib/intake.ts`: set it to `false` while the next group is full, and back to `true` when places open again. The hero, the close, the metadata and the OG image all read from there.
 
-When someone takes a place, lower `PLACES_LEFT`.
-When the group fills, it starts. Set `PLACES_LEFT` back to `GROUP_SIZE` for the next group.
+The seller's details (name, registry code, VAT number, address, email, phone) are in `lib/company.ts`. The footer, the terms of sale and the privacy page read from there.
 The product name is `PROGRAM_NAME` in `lib/intake.ts`.
 The price is `PRICE_EUROS`. The six-payment plan is `ENROL_EUROS` plus `MONTHLY_EUROS` × `MONTHS` (shown as `priceLine()` in the hero and the close, and `paymentLine()` in How you enter).
 
@@ -23,10 +22,10 @@ This training is about what's underneath it. Over four hundred yoga teachers hav
 
 **Intake**
 Yoga Teacher Training
-A group of twelve is forming.
+Places are open for the next group.
 2,500 euros at once, or 2,900 in six payments
 
-(If places are left: "Five places left in the group that's forming." If full: "This group is full. The next one is opening.")
+(While the next group is full: "The next group is full. Ask, and I will tell you when the one after it starts.")
 
 **Form button**
 Ask for a place
@@ -39,6 +38,7 @@ what you've been teaching, or why you're writing
 **Under the form**
 I will write back with how the training runs, the day and time of the live sessions, and the earliest date you can start.
 Asking reserves nothing and commits you to nothing. You decide after my reply.
+I use what you send only to answer you about the training. Privacy (link)
 
 ---
 
@@ -70,13 +70,13 @@ The certificate is mine, not Yoga Alliance's. It does not lead to RYT status. If
 **Heading**
 How you enter
 
-The training is already running. New people start together, in groups of twelve. When you ask, I write back with the earliest date you can start.
+The training is already running. New people start together, in small groups. When you ask, I write back with the earliest date you can start.
 
-It runs online for about six months, in two-week steps. Each step is four hours of recorded lectures, your own practice, and a live session. Your practice starts on the first day.
+It runs online for six months from the day your group starts, in two-week steps. Each step is four hours of recorded lectures, your own practice with the practice videos, and a live session. Your practice starts on the first day.
 
-Six months hold about two hundred hours: lectures, your practice, live sessions and teaching others, counted the way 200-hour trainings count them.
+Six months hold about two hundred hours: lectures, practice with the videos, live sessions and teaching others, counted the way 200-hour trainings count them.
 
-Live sessions are in English, at a set day and time, and last one to two hours. You get the day and time in the email, before you take a place, so you can check it against your calendar. Every session is recorded, and the recordings stay open for as long as you are in the training.
+Live sessions are in English, at a set day and time, and last one to two hours. You get the day and time in the email, before you take a place, so you can check it against your calendar. Every session is recorded. Everything in the training, recordings included, is yours for those six months.
 
 Some live sessions are for your group alone. Others bring several groups together, so people who joined months ago and people who joined this week are in the same session.
 
@@ -160,6 +160,19 @@ An earlier training group in Latvia.
 
 ---
 
+## Who teaches it
+
+**Heading**
+Who teaches it
+
+(Portrait: `public/miska.jpg`)
+
+I'm Miska Käppi. I grew up in Lapland, a sceptic raised on a strictly materialist picture of the world.
+
+I have studied in a tantric line since 2012 and trained yoga teachers since 2014. I teach the whole training myself.
+
+---
+
 ## One story
 
 **Heading**
@@ -185,7 +198,7 @@ That's the direction I went, and I'm still going. This training is what I found 
 
 Yoga Teacher Training
 
-A group of twelve is forming.
+Places are open for the next group.
 
 2,500 euros at once, or 2,900 in six payments
 
@@ -198,6 +211,12 @@ Asking reserves nothing and commits you to nothing. You decide after my reply.
 
 For personal guidance and initiation into the tradition: ancientscience.com
 
+Ancient Science OÜ · Registry code · VAT · address · email · phone (from `lib/company.ts`)
+
+Terms of sale · Privacy · Withdraw from contract here
+
+The three legal pages are `app/terms/page.tsx`, `app/privacy/page.tsx` and `app/withdraw/page.tsx`. "Withdraw from contract here" is the withdrawal function EU consumer law requires: a two-step form that lands in GoHighLevel with the tag `explore.yoga withdrawal`.
+
 ---
 
 ## Search results and link previews
@@ -206,7 +225,7 @@ For personal guidance and initiation into the tradition: ancientscience.com
 Yoga Teacher Training with Miska Käppi
 
 **Description** (keep it under about 160 characters)
-Miska Käppi's Yoga Teacher Training: what's underneath the body you can see. Over four hundred teachers have studied with him. A group of twelve is forming.
+Miska Käppi's Yoga Teacher Training: what's underneath the body you can see. Over four hundred teachers have studied with him. Places are open for the next group.
 
 ---
 

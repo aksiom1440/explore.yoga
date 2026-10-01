@@ -7,6 +7,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
+import Link from "next/link";
 import { formNote } from "@/lib/intake";
 import { joinWaitlist, type WaitlistState } from "@/lib/waitlist";
 
@@ -168,6 +169,15 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
         {formNote.map((line) => (
           <p key={line}>{line}</p>
         ))}
+        <p>
+          I use what you send only to answer you about the training.{" "}
+          <Link
+            href="/privacy"
+            className="underline decoration-rule underline-offset-4 transition-colors hover:text-ink"
+          >
+            Privacy
+          </Link>
+        </p>
       </div>
     </>
   );

@@ -1,24 +1,13 @@
 import Image from "next/image";
+import { Logo } from "@/components/logo";
+import { SiteFooter } from "@/components/site-footer";
 import { WaitlistForm } from "@/components/waitlist-form";
 import {
   PROGRAM_NAME,
-  formingLine,
+  intakeLine,
   paymentLine,
   priceLine,
 } from "@/lib/intake";
-
-function Logo() {
-  return (
-    <Image
-      src="/logo.svg"
-      alt="explore.yoga"
-      width={807}
-      height={124}
-      priority
-      className="h-7 w-auto sm:h-8"
-    />
-  );
-}
 
 function Rule() {
   return <div className="rule" aria-hidden="true" />;
@@ -115,7 +104,7 @@ export default function Home() {
                   <strong className="font-medium">{PROGRAM_NAME}</strong>
                 </p>
                 <p className="mt-2 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal">
-                  {formingLine()}
+                  {intakeLine()}
                 </p>
                 <p className="mt-2 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal">
                   {priceLine()}
@@ -178,25 +167,26 @@ export default function Home() {
             <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
               <p className="measure">
                 The training is already running. New people start together, in
-                groups of twelve. When you ask, I write back with the earliest
-                date you can start.
+                small groups. When you ask, I write back with the earliest date
+                you can start.
               </p>
               <p className="measure">
-                It runs online for about six months, in two-week steps. Each
-                step is four hours of recorded lectures, your own practice, and
-                a live session. Your practice starts on the first day.
+                It runs online for six months from the day your group starts,
+                in two-week steps. Each step is four hours of recorded lectures,
+                your own practice with the practice videos, and a live session.
+                Your practice starts on the first day.
               </p>
               <p className="measure">
-                Six months hold about two hundred hours: lectures, your
-                practice, live sessions and teaching others, counted the way
+                Six months hold about two hundred hours: lectures, practice with
+                the videos, live sessions and teaching others, counted the way
                 200-hour trainings count them.
               </p>
               <p className="measure">
                 Live sessions are in English, at a set day and time, and last
                 one to two hours. You get the day and time in the email, before
                 you take a place, so you can check it against your calendar.
-                Every session is recorded, and the recordings stay open for as
-                long as you are in the training.
+                Every session is recorded. Everything in the training,
+                recordings included, is yours for those six months.
               </p>
               <p className="measure">
                 Some live sessions are for your group alone. Others bring
@@ -331,6 +321,32 @@ export default function Home() {
         <div className="mx-auto w-full max-w-3xl px-5 sm:px-8 lg:px-12">
           <section className="py-16 sm:py-24">
             <h2 className="font-serif text-[1.65rem] font-light tracking-[-0.02em] sm:text-3xl">
+              Who teaches it
+            </h2>
+            <div className="mt-10 grid items-end gap-8 sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-10">
+              <Image
+                src="/miska.jpg"
+                alt="Miska Käppi"
+                width={1058}
+                height={1300}
+                sizes="(max-width: 640px) 60vw, 240px"
+                className="h-auto w-3/5 sm:w-full"
+              />
+              <div className="space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
+                <p className="measure">
+                  I&apos;m Miska Käppi. I grew up in Lapland, a sceptic raised
+                  on a strictly materialist picture of the world.
+                </p>
+                <p className="measure">
+                  I have studied in a tantric line since 2012 and trained yoga
+                  teachers since 2014. I teach the whole training myself.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="border-t border-rule py-16 sm:py-24">
+            <h2 className="font-serif text-[1.65rem] font-light tracking-[-0.02em] sm:text-3xl">
               One story
             </h2>
             <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.7] sm:text-[1.22rem]">
@@ -373,7 +389,7 @@ export default function Home() {
               {PROGRAM_NAME}
             </p>
             <p className="prose-line measure mt-4 text-[1.12rem] font-light leading-[1.6] sm:text-[1.22rem]">
-              {formingLine()}
+              {intakeLine()}
             </p>
             <p className="prose-line measure mt-4 text-[1.12rem] font-light leading-[1.6] sm:text-[1.22rem]">
               {priceLine()}
@@ -385,17 +401,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="px-5 pb-12 pt-4 sm:px-8 lg:px-12">
-        <p className="mx-auto max-w-3xl font-ui text-[0.78rem] leading-relaxed tracking-[0.01em] text-quiet">
-          For personal guidance and initiation into the tradition:{" "}
-          <a
-            href="https://ancientscience.com"
-            className="text-quiet underline decoration-rule underline-offset-4 transition-colors hover:text-ink"
-          >
-            ancientscience.com
-          </a>
-        </p>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

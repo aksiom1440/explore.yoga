@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, Newsreader } from "next/font/google";
-import { PROGRAM_NAME, formingLine } from "@/lib/intake";
+import { PROGRAM_NAME, intakeLine } from "@/lib/intake";
 import "./globals.css";
 
 const serif = Newsreader({
@@ -19,7 +19,7 @@ const ui = IBM_Plex_Sans({
 });
 
 const title = `${PROGRAM_NAME} with Miska Käppi`;
-const description = `Miska Käppi's ${PROGRAM_NAME}: what's underneath the body you can see. Over four hundred teachers have studied with him. ${formingLine()}`;
+const description = `Miska Käppi's ${PROGRAM_NAME}: what's underneath the body you can see. Over four hundred teachers have studied with him. ${intakeLine()}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://explore.yoga"),
