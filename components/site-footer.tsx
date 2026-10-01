@@ -15,12 +15,10 @@ export function SiteFooter() {
           </a>
         </p>
         <p>
-          {COMPANY.name} · Registry code {COMPANY.registryCode} · VAT{" "}
-          {COMPANY.vatNumber} · {COMPANY.address} ·{" "}
-          <a href={`mailto:${COMPANY.email}`} className={link}>
-            {COMPANY.email}
-          </a>{" "}
-          · {COMPANY.phone}
+          {COMPANY.name} ·{" "}
+          <Link href="/terms#seller" className={link}>
+            Company details
+          </Link>
         </p>
         <p className="flex flex-wrap gap-x-5 gap-y-2">
           <Link href="/books" className={link}>

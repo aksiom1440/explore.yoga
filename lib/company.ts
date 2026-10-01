@@ -4,7 +4,7 @@ export const COMPANY = {
   registryCode: "16721807",
   vatNumber: "EE102617896",
   address: "Sakala tn 7-2, 10141 Tallinn, Estonia",
-  email: "miskakappi@proton.me",
+  email: "info@ancientscience.com",
   phone: "+358 40 833 4786",
 } as const;
 

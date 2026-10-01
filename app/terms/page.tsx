@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function Terms() {
   return (
     <LegalPage title="Terms of sale">
-      <h2>Who sells the training</h2>
+      <h2 id="seller">Who sells the training</h2>
       <p>
         {PROGRAM_NAME} is sold by {COMPANY.name}, registry code{" "}
         {COMPANY.registryCode}, VAT number {COMPANY.vatNumber},{" "}

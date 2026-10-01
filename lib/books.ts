@@ -155,7 +155,7 @@ export const spine: Hub[] = [
     book: {
       title: "Born to Win",
       author: "Muriel James and Dorothy Jongeward",
-      note: "Dharma in practice.",
+      note: "On the surface, this is Gestalt psychology, but it gives a nice answer why you should find your potential, your dharma.",
     },
     sides: [
       {
