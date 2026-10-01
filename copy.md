@@ -4,6 +4,8 @@ Edit this file. When you're done, say "päivitä sivu".
 
 The page never states a group size or how many places are left. Whether places are open is `INTAKE_OPEN` in `lib/intake.ts`: set it to `false` while the next group is full, and back to `true` when places open again. The hero, the close, the metadata and the OG image all read from there.
 
+The reading map at `/books` ("So you want to learn tantra yoga?") is drawn as a map: three doors merge into tantra, a spine of books with side roads leads down to "The studies have finally begun", and the path branches into mantra, the texts, hatha and medicine. "Around the path" has its own four branches. Everything lives in `lib/books.ts`: `via` is the line on the arrow into a book, `note` the caption above it. Its form tags asks as `place-books` in GoHighLevel.
+
 The seller's details (name, registry code, VAT number, address, email, phone) are in `lib/company.ts`. The footer, the terms of sale and the privacy page read from there.
 The product name is `PROGRAM_NAME` in `lib/intake.ts`.
 The price is `PRICE_EUROS`. The six-payment plan is `ENROL_EUROS` plus `MONTHLY_EUROS` × `MONTHS` (shown as `priceLine()` in the hero and the close, and `paymentLine()` in How you enter).
@@ -130,6 +132,8 @@ Modern research sits next to that model. I will tell you which claims are the tr
 
 Ask me for the source. That is my job.
 
+If you want to start reading now, here is the reading map. (links to /books)
+
 ---
 
 ## Who this is for, and who it isn't
@@ -214,7 +218,7 @@ For personal guidance and initiation into the tradition: ancientscience.com
 
 Ancient Science OÜ · Registry code · VAT · address · email · phone (from `lib/company.ts`)
 
-Terms of sale · Privacy · Withdraw from contract here
+Reading map · Terms of sale · Privacy · Withdraw from contract here
 
 The three legal pages are `app/terms/page.tsx`, `app/privacy/page.tsx` and `app/withdraw/page.tsx`. "Withdraw from contract here" is the withdrawal function EU consumer law requires: a two-step form that lands in GoHighLevel with the tag `explore.yoga withdrawal`.
 

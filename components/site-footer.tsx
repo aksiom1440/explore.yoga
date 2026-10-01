@@ -23,6 +23,9 @@ export function SiteFooter() {
           · {COMPANY.phone}
         </p>
         <p className="flex flex-wrap gap-x-5 gap-y-2">
+          <Link href="/books" className={link}>
+            Reading map
+          </Link>
           <Link href="/terms" className={link}>
             Terms of sale
           </Link>

@@ -45,7 +45,7 @@ async function postJson(url: string, body: unknown, extra?: HeadersInit) {
 
 async function deliverGhl(place: Place) {
   const tags = ["explore.yoga waitlist", "explore.yoga place"];
-  if (place.source === "hero" || place.source === "close") {
+  if (["hero", "close", "books"].includes(place.source)) {
     tags.push(`waitlist-${place.source}`);
     tags.push(`place-${place.source}`);
   }

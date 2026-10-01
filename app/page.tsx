@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { SiteFooter } from "@/components/site-footer";
 import { WaitlistForm } from "@/components/waitlist-form";
@@ -234,6 +235,16 @@ export default function Home() {
               </p>
               <p className="measure">
                 Ask me for the source. That is my job.
+              </p>
+              <p className="measure">
+                If you want to start reading now, here is{" "}
+                <Link
+                  href="/books"
+                  className="underline decoration-rule underline-offset-4 transition-colors hover:text-signal"
+                >
+                  the reading map
+                </Link>
+                .
               </p>
             </div>
           </section>
