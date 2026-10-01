@@ -178,7 +178,7 @@ export const spine: Hub[] = [
     book: {
       title: "Divine Initiation",
       author: "Bhagavan Shri Shanmukha Anantha Natha",
-      note: "The lineage book of Vedic code, in two parts: sun and moon.",
+      note: "Learn The Vedic Code",
     },
     sides: [
       {
