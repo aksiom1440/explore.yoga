@@ -34,11 +34,12 @@ Ask for a place
 your name
 your email
 what you've been teaching, or why you're writing
+☐ Also write to me now and then about the tradition and new groups. I can leave any time. (optional, unticked; the exact words are `NEWSLETTER_CONSENT` in `lib/intake.ts` and are stored with each yes)
 
 **Under the form**
 I will write back with how the training runs, the day and time of the live sessions, and the earliest date you can start.
 Asking reserves nothing and commits you to nothing. You decide after my reply.
-I use what you send only to answer you about the training. Privacy (link)
+I use what you send to answer you about the training, and send letters only if you tick the box. Privacy (link)
 
 ---
 
@@ -169,7 +170,7 @@ Who teaches it
 
 I'm Miska Käppi. I grew up in Lapland, a sceptic raised on a strictly materialist picture of the world.
 
-I have studied in a tantric line since 2012 and trained yoga teachers since 2014. I teach the whole training myself.
+I have studied yoga since 2006, in a tantric line since 2012 and trained yoga teachers since 2014. I teach the whole training myself.
 
 ---
 

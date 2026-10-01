@@ -338,8 +338,9 @@ export default function Home() {
                   on a strictly materialist picture of the world.
                 </p>
                 <p className="measure">
-                  I have studied in a tantric line since 2012 and trained yoga
-                  teachers since 2014. I teach the whole training myself.
+                  I have studied yoga since 2006, in a tantric line since 2012
+                  and trained yoga teachers since 2014. I teach the whole
+                  training myself.
                 </p>
               </div>
             </div>

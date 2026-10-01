@@ -49,10 +49,16 @@ export default function Privacy() {
           sending, and the host keeps short technical logs. The site uses no
           cookies and no analytics.
         </li>
+        <li>
+          <strong>If you tick the box on the form:</strong> I also send you
+          letters now and then about the tradition and new groups. Legal basis:
+          your consent (article 6(1)(a)). Every letter has a link to leave, and
+          you can also write to me.
+        </li>
       </ul>
       <p>
-        I write to you only about {PROGRAM_NAME}, which you asked about. I do
-        not add you to a newsletter.
+        Without that box, I write to you only about {PROGRAM_NAME}, which you
+        asked about.
       </p>
 
       <h2>Who else handles it</h2>
@@ -85,6 +91,7 @@ export default function Privacy() {
           training, and at most two years.
         </li>
         <li>Withdrawals: 3 years.</li>
+        <li>Letters: until you leave them.</li>
       </ul>
 
       <h2>Your rights</h2>

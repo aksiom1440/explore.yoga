@@ -9,11 +9,13 @@ import {
   recordInGhl,
   splitName,
 } from "@/lib/delivery";
+import { NEWSLETTER_CONSENT } from "@/lib/intake";
 
 type Fields = {
   name: string;
   email: string;
   background: string;
+  newsletter: boolean;
 };
 
 /** Fields go back to the form so it can show who it heard from, or refill itself after an error. */
@@ -26,6 +28,7 @@ type Place = {
   email: string;
   name: string;
   background: string;
+  newsletter: boolean;
   source: string;
 };
 
@@ -46,11 +49,15 @@ async function deliverGhl(place: Place) {
     tags.push(`waitlist-${place.source}`);
     tags.push(`place-${place.source}`);
   }
+  if (place.newsletter) tags.push("explore.yoga newsletter");
+  const consent = place.newsletter
+    ? `\n\nNewsletter: yes, ${new Date().toISOString()}, ticked "${NEWSLETTER_CONSENT}"`
+    : "";
   // The contact is stored before the note; a missing note must not block the ask.
   await recordInGhl(
     place,
     tags,
-    `Asked for a place (${place.source})\n\n${place.background}`,
+    `Asked for a place (${place.source})\n\n${place.background}${consent}`,
   );
 }
 
@@ -71,6 +78,7 @@ async function deliver(place: Place) {
         email: place.email,
         name: place.name,
         background: place.background,
+        newsletter: place.newsletter,
         source: place.source,
         list: "explore.yoga",
         intent: "place",
@@ -78,7 +86,8 @@ async function deliver(place: Place) {
     );
   }
 
-  if (kitKey && kitForm) {
+  // Kit and ConvertKit are mailing lists: only for those who ticked the box.
+  if (place.newsletter && kitKey && kitForm) {
     jobs.push(
       postJson(
         `https://api.kit.com/v4/forms/${kitForm}/subscribers`,
@@ -91,7 +100,7 @@ async function deliver(place: Place) {
     );
   }
 
-  if (ckKey && ckForm) {
+  if (place.newsletter && ckKey && ckForm) {
     jobs.push(
       postJson(`https://api.convertkit.com/v3/forms/${ckForm}/subscribe`, {
         api_key: ckKey,
@@ -122,8 +131,9 @@ export async function joinWaitlist(
     .toLowerCase();
   const name = String(formData.get("name") ?? "").trim();
   const background = String(formData.get("background") ?? "").trim();
+  const newsletter = formData.get("newsletter") === "yes";
   const source = String(formData.get("source") ?? "unknown");
-  const fields = { name, email, background };
+  const fields = { name, email, background, newsletter };
 
   if (String(formData.get("website") ?? "")) {
     return { ok: true, fields };
@@ -161,7 +171,7 @@ export async function joinWaitlist(
   }
 
   try {
-    await deliver({ email, name, background, source });
+    await deliver({ email, name, background, newsletter, source });
     return { ok: true, fields };
   } catch {
     return { ok: false, message: "Couldn't send that. Try again.", fields };

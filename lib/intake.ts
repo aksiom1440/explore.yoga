@@ -48,6 +48,10 @@ export function intakeLine(open = INTAKE_OPEN): string {
     : "The next group is full. Ask, and I will tell you when the one after it starts.";
 }
 
+/** The newsletter box on the form. Stored word for word with each yes, as the record of consent. */
+export const NEWSLETTER_CONSENT =
+  "Also write to me now and then about the tradition and new groups. I can leave any time.";
+
 export const formNote = [
   "I will write back with how the training runs, the day and time of the live sessions, and the earliest date you can start.",
   "Asking reserves nothing and commits you to nothing. You decide after my reply.",

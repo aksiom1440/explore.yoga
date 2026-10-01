@@ -8,7 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import { formNote } from "@/lib/intake";
+import { NEWSLETTER_CONSENT, formNote } from "@/lib/intake";
 import { joinWaitlist, type WaitlistState } from "@/lib/waitlist";
 
 type Sent = Extract<WaitlistState, { ok: true }>;
@@ -149,6 +149,17 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
             disabled={pending}
             className={`min-h-[5.5rem] resize-y py-3 ${field}`}
           />
+          <label className="mt-1 flex cursor-pointer items-start gap-3 font-serif text-[0.95rem] leading-snug text-quiet">
+            <input
+              type="checkbox"
+              name="newsletter"
+              value="yes"
+              defaultChecked={typed?.newsletter}
+              disabled={pending}
+              className="mt-[0.2em] h-4 w-4 shrink-0 accent-signal"
+            />
+            <span>{NEWSLETTER_CONSENT}</span>
+          </label>
           <div>
             <button
               type="submit"
@@ -170,7 +181,8 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
           <p key={line}>{line}</p>
         ))}
         <p>
-          I use what you send only to answer you about the training.{" "}
+          I use what you send to answer you about the training, and send
+          letters only if you tick the box.{" "}
           <Link
             href="/privacy"
             className="underline decoration-rule underline-offset-4 transition-colors hover:text-ink"
