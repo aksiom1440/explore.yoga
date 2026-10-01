@@ -67,8 +67,8 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
           <p>
             I will write to{" "}
             <span className="break-all text-ink">{sent.fields.email}</span> with
-            how the training runs and the day and time of the weekly live
-            class.
+            how the training runs, the day and time of the live sessions, and
+            the earliest date you can start.
           </p>
           <p>
             Nothing is reserved yet, and you owe nothing. You decide once you

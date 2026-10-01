@@ -3,10 +3,22 @@
 export const PROGRAM_NAME = "Yoga Teacher Training";
 export const GROUP_SIZE = 12;
 export const PLACES_LEFT = 12;
-export const PRICE_EUROS = 2900;
+export const PRICE_EUROS = 2500;
+export const ENROL_EUROS = 1000;
+export const MONTHLY_EUROS = 380;
+export const MONTHS = 5;
 
-export function priceLine(amount = PRICE_EUROS): string {
-  return `${amount.toLocaleString("en-GB")} euros, or pay in instalments`;
+function euros(amount: number): string {
+  return amount.toLocaleString("en-GB");
+}
+
+export function priceLine(): string {
+  const total = ENROL_EUROS + MONTHLY_EUROS * MONTHS;
+  return `${euros(PRICE_EUROS)} euros at once, or ${euros(total)} in ${word(MONTHS + 1)} payments`;
+}
+
+export function paymentLine(): string {
+  return `${euros(PRICE_EUROS)} euros at once, or ${euros(ENROL_EUROS)} euros to enrol and then ${euros(MONTHLY_EUROS)} a month for ${word(MONTHS)} months.`;
 }
 
 const WORDS = [
@@ -44,7 +56,6 @@ export function formingLine(
 }
 
 export const formNote = [
-  "I will write back with how the training runs and the day and time of the weekly live class.",
+  "I will write back with how the training runs, the day and time of the live sessions, and the earliest date you can start.",
   "Asking reserves nothing and commits you to nothing. You decide after my reply.",
-  `The group starts when ${word(GROUP_SIZE)} people have taken a place.`,
 ] as const;

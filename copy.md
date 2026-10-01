@@ -7,7 +7,9 @@ Group size and remaining places live in `lib/intake.ts` (`GROUP_SIZE`, `PLACES_L
 When someone takes a place, lower `PLACES_LEFT`.
 When the group fills, it starts. Set `PLACES_LEFT` back to `GROUP_SIZE` for the next group.
 The product name is `PROGRAM_NAME` in `lib/intake.ts`.
-The price is `PRICE_EUROS` (shown as `priceLine()`, which also says you can pay in instalments).
+The price is `PRICE_EUROS`. The six-payment plan is `ENROL_EUROS` plus `MONTHLY_EUROS` × `MONTHS` (shown as `priceLine()` in the hero and the close, and `paymentLine()` in How you enter).
+
+Never compare the price with other trainings, and never call it cheap or affordable.
 
 ---
 
@@ -22,7 +24,7 @@ This training is about what's underneath it. Over four hundred yoga teachers hav
 **Intake**
 Yoga Teacher Training
 A group of twelve is forming.
-2,900 euros, or pay in instalments
+2,500 euros at once, or 2,900 in six payments
 
 (If places are left: "Five places left in the group that's forming." If full: "This group is full. The next one is opening.")
 
@@ -35,9 +37,8 @@ your email
 what you've been teaching, or why you're writing
 
 **Under the form**
-I will write back with how the training runs and the day and time of the weekly live class.
+I will write back with how the training runs, the day and time of the live sessions, and the earliest date you can start.
 Asking reserves nothing and commits you to nothing. You decide after my reply.
-The group starts when twelve people have taken a place.
 
 ---
 
@@ -69,15 +70,17 @@ The certificate is mine, not Yoga Alliance's. It does not lead to RYT status. If
 **Heading**
 How you enter
 
-The training is already running. New people join in groups of twelve.
+The training is already running. New people start together, in groups of twelve. When you ask, I write back with the earliest date you can start.
 
-A group starts the day its last place is taken. The next group opens that same day.
+It runs online for about six months, in two-week steps. Each step is four hours of recorded lectures, your own practice, and a live session. Your practice starts on the first day.
 
-Live classes are once a week, at a set day and time, in English. You get that day and time in the email, before you take a place, so you can check it against your calendar.
+Live sessions are in English, at a set day and time, and last one to two hours. You get the day and time in the email, before you take a place, so you can check it against your calendar. Every session is recorded, and the recordings stay open for as long as you are in the training.
 
-The live room is mixed. People who joined months ago and people who joined this week are in the same session.
+Some live sessions are for your group alone. Others bring several groups together, so people who joined months ago and people who joined this week are in the same session.
 
-You finish when you can teach it.
+2,500 euros at once, or 1,000 euros to enrol and then 380 a month for five months.
+
+At the end, you can pass the system on.
 
 ---
 
@@ -131,6 +134,8 @@ Ask me for the source. That is my job.
 **Heading**
 Who this is for, and who it isn't
 
+You don't need a practice background. A long practice usually means a readier body and more to unlearn. A short one usually means the practice is harder at first, and learning something new is easy.
+
 **Come if**
 you've taught for years and are still open to a new model
 you're not planning to teach, which is how some of the best teachers I trained arrived
@@ -180,11 +185,10 @@ Yoga Teacher Training
 
 A group of twelve is forming.
 
-2,900 euros, or pay in instalments
+2,500 euros at once, or 2,900 in six payments
 
-I will write back with how the training runs and the day and time of the weekly live class.
+I will write back with how the training runs, the day and time of the live sessions, and the earliest date you can start.
 Asking reserves nothing and commits you to nothing. You decide after my reply.
-The group starts when twelve people have taken a place.
 
 ---
 
@@ -209,7 +213,7 @@ Miska Käppi's Yoga Teacher Training: what's underneath the body you can see. Ov
 Replaces the form and the lines under it, in both places on the page. The first name and the email come from what they typed.
 
 *Thank you, Anna. Your note reached me.*
-I will write to anna@example.com with how the training runs and the day and time of the weekly live class.
+I will write to anna@example.com with how the training runs, the day and time of the live sessions, and the earliest date you can start.
 Nothing is reserved yet, and you owe nothing. You decide once you have read it.
 If my reply hasn't arrived within two days, look in your spam folder.
 Wrong address? Send it again

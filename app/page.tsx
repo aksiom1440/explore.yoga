@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { WaitlistForm } from "@/components/waitlist-form";
-import { PROGRAM_NAME, formingLine, priceLine } from "@/lib/intake";
+import {
+  PROGRAM_NAME,
+  formingLine,
+  paymentLine,
+  priceLine,
+} from "@/lib/intake";
 
 function Logo() {
   return (
@@ -172,23 +177,29 @@ export default function Home() {
             </h2>
             <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
               <p className="measure">
-                The training is already running. New people join in groups of
-                twelve.
+                The training is already running. New people start together, in
+                groups of twelve. When you ask, I write back with the earliest
+                date you can start.
               </p>
               <p className="measure">
-                A group starts the day its last place is taken. The next group
-                opens that same day.
+                It runs online for about six months, in two-week steps. Each
+                step is four hours of recorded lectures, your own practice, and
+                a live session. Your practice starts on the first day.
               </p>
               <p className="measure">
-                Live classes are once a week, at a set day and time, in
-                English. You get that day and time in the email, before you
-                take a place, so you can check it against your calendar.
+                Live sessions are in English, at a set day and time, and last
+                one to two hours. You get the day and time in the email, before
+                you take a place, so you can check it against your calendar.
+                Every session is recorded, and the recordings stay open for as
+                long as you are in the training.
               </p>
               <p className="measure">
-                The live room is mixed. People who joined months ago and people
-                who joined this week are in the same session.
+                Some live sessions are for your group alone. Others bring
+                several groups together, so people who joined months ago and
+                people who joined this week are in the same session.
               </p>
-              <p className="measure">You finish when you can teach it.</p>
+              <p className="measure">{paymentLine()}</p>
+              <p className="measure">At the end, you can pass the system on.</p>
             </div>
           </section>
         </div>
@@ -236,6 +247,12 @@ export default function Home() {
             <h2 className="font-serif text-[1.65rem] font-light tracking-[-0.02em] sm:text-3xl">
               Who this is for, and who it isn&apos;t
             </h2>
+            <p className="prose-line measure mt-10 text-[1.08rem] font-light leading-[1.6]">
+              You don&apos;t need a practice background. A long practice
+              usually means a readier body and more to unlearn. A short one
+              usually means the practice is harder at first, and learning
+              something new is easy.
+            </p>
             <div className="mt-12 grid gap-14 sm:grid-cols-2 sm:gap-16">
               <div>
                 <h3 className="text-[1.2rem] font-medium tracking-[-0.015em]">
