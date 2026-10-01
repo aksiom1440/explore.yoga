@@ -187,6 +187,11 @@ export default function Home() {
                 a live session. Your practice starts on the first day.
               </p>
               <p className="measure">
+                Six months hold about two hundred hours: lectures, your
+                practice, live sessions and teaching others, counted the way
+                200-hour trainings count them.
+              </p>
+              <p className="measure">
                 Live sessions are in English, at a set day and time, and last
                 one to two hours. You get the day and time in the email, before
                 you take a place, so you can check it against your calendar.
