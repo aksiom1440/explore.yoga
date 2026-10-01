@@ -89,7 +89,12 @@ export default function Home() {
           />
 
           <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col">
-            <Logo />
+            <div className="flex items-center justify-between gap-4">
+              <Logo />
+              <Link href="/books" className="font-ui text-[0.8rem] font-medium tracking-[0.04em] text-signal underline decoration-rule underline-offset-4 transition-colors hover:text-ink">
+                Reading map
+              </Link>
+            </div>
             <div className="flex max-w-3xl flex-1 flex-col">
               <div className="flex flex-1 flex-col justify-center py-8 sm:py-10">
                 <h1 className="max-w-[18ch] font-serif text-[2.05rem] font-light leading-[1.12] tracking-[-0.028em] text-ink sm:text-5xl sm:leading-[1.08] lg:text-[3.35rem]">
