@@ -67,8 +67,8 @@ export default function Terms() {
       </ul>
       <p>
         Prices include VAT. You pay by card through a Stripe payment link I
-        send you. Monthly payments are charged to the same card, and every one
-        of them falls within your six months.
+        send you. Monthly payments are charged to the same card, and the last
+        one falls within your six months.
       </p>
 
       <h2>When the contract is made</h2>
