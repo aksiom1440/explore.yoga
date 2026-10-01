@@ -4,7 +4,7 @@ Edit this file. When you're done, say "päivitä sivu".
 
 The page never states a group size or how many places are left. Whether places are open is `INTAKE_OPEN` in `lib/intake.ts`: set it to `false` while the next group is full, and back to `true` when places open again. The hero, the close, the metadata and the OG image all read from there.
 
-The reading map at `/books` ("So you want to learn tantra yoga?") lives in `lib/books.ts`: one line per book, in my voice. Its form tags asks as `place-books` in GoHighLevel.
+The reading map at `/books` ("So you want to learn tantra yoga?") is drawn as a map: three doors merge into tantra, a spine of books with side roads leads down to "The studies have finally begun", and the path branches into mantra, the texts, hatha and medicine. "Around the path" has its own four branches. Everything lives in `lib/books.ts`: `via` is the line on the arrow into a book, `note` the caption above it. Its form tags asks as `place-books` in GoHighLevel.
 
 The seller's details (name, registry code, VAT number, address, email, phone) are in `lib/company.ts`. The footer, the terms of sale and the privacy page read from there.
 The product name is `PROGRAM_NAME` in `lib/intake.ts`.

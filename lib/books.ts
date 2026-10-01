@@ -1,23 +1,34 @@
-/** The reading map at /books. Each note is one line in Miska's voice. */
+/**
+ * The reading map at /books, drawn as a map: three doors merge into tantra,
+ * tantra leads down a spine of hubs, and the spine branches into the texts.
+ * `via` is the line on the arrow into a book; `note` is the caption above it.
+ */
 
 export type Book = {
   title: string;
   author: string;
-  note: string;
-  bonus?: boolean;
+  note?: string;
+  via?: string;
 };
 
-export type Shelf = {
-  id: string;
-  heading: string;
+export type Chain = {
+  label: string;
   lead?: string;
+  tone: string;
   books: Book[];
 };
 
-export const doors: Shelf[] = [
+export type Hub = {
+  via: string;
+  tone: string;
+  book: Book;
+  sides: Book[];
+};
+
+export const doors: Chain[] = [
   {
-    id: "new-to-yoga",
-    heading: "I'm new to yoga",
+    label: "I'm new to yoga",
+    tone: "#7d8f5a",
     books: [
       {
         title: "Living Yoga: Creating a Life Practice",
@@ -27,23 +38,26 @@ export const doors: Shelf[] = [
       {
         title: "Anatomy of Hatha Yoga",
         author: "H. David Coulter",
-        note: "How not to hurt yourself doing asanas. Don't believe everything this book says.",
+        via: "How not to hurt yourself doing asanas",
+        note: "Don't believe everything this book says.",
       },
       {
         title: "Breath: The New Science of a Lost Art",
         author: "James Nestor",
-        note: "What the breath does, told as a story. The best first step toward pranayama.",
+        via: "Then learn to breathe",
+        note: "What the breath does, told as a story.",
       },
     ],
   },
   {
-    id: "into-spirituality",
-    heading: "I'm into spirituality",
+    label: "I'm into spirituality",
+    tone: "#9c5a6e",
     books: [
       {
         title: "Sexual Secrets: The Alchemy of Ecstasy",
         author: "Nik Douglas and Penny Slinger",
-        note: "Tantra for beginners. Hope you aren't afraid of nude art.",
+        via: "Hope you aren't afraid of nude art",
+        note: "Tantra for beginners.",
       },
       {
         title:
@@ -59,13 +73,14 @@ export const doors: Shelf[] = [
     ],
   },
   {
-    id: "scientific-approach",
-    heading: "I prefer the scientific approach",
+    label: "I prefer the scientific approach",
+    tone: "#5f7f8f",
     books: [
       {
         title: "Wholeness and the Implicate Order",
         author: "David Bohm",
-        note: "Yoga is the science of union. So start by understanding wholeness.",
+        via: "Yoga is the science of union",
+        note: "So start by understanding wholeness.",
       },
       {
         title: "The Idea of the World",
@@ -75,8 +90,8 @@ export const doors: Shelf[] = [
       {
         title: "The Turning Point",
         author: "Fritjof Capra",
-        note: "What this will mean for science.",
-        bonus: true,
+        via: "Bonus round",
+        note: "What will this mean for science?",
       },
       {
         title: "The Science Delusion",
@@ -97,96 +112,99 @@ export const doors: Shelf[] = [
   },
 ];
 
-export const path: Shelf[] = [
+export const spine: Hub[] = [
   {
-    id: "ready-for-tantra",
-    heading: "You're ready for tantra",
-    lead: "All three doors lead here.",
-    books: [
-      {
-        title: "Shakti and Shakta",
-        author: "Sir John Woodroffe",
-        note: "A collection of excellent essays on tantra.",
-      },
+    via: "You're ready for tantra",
+    tone: "#9a3d2c",
+    book: {
+      title: "Shakti and Shakta",
+      author: "Sir John Woodroffe",
+      note: "A collection of excellent essays on tantra.",
+    },
+    sides: [
       {
         title: "The Serpent Power",
         author: "Sir John Woodroffe (Arthur Avalon)",
+        via: "Bonus round",
         note: "The first three hundred pages are the introduction. The rest is the traditional texts.",
-        bonus: true,
       },
       {
         title: "Tantra Illuminated",
         author: "Christopher D. Wallis",
-        note: "The clearest modern map of the Trika and Kaula lines.",
+        via: "Today's map",
+        note: "The clearest modern account of the Trika and Kaula lines.",
       },
       {
         title:
           "Tantra: Sex, Secrecy, Politics, and Power in the Study of Religion",
         author: "Hugh B. Urban",
-        note: "How the bad name was made.",
+        via: "Why the bad name?",
+        note: "They wrote about tantra before they had read one.",
       },
       {
         title: "The Tantric Way: Art, Science, Ritual",
         author: "Ajit Mookerjee and Madhu Khanna",
+        via: "Still not afraid of nude art?",
         note: "Temple art as metaphysics, not an erotic tour.",
       },
     ],
   },
   {
-    id: "relevance",
-    heading: "What is the relevance of this?",
-    lead: "Dharma in practice.",
-    books: [
-      {
-        title: "Born to Win",
-        author: "Muriel James and Dorothy Jongeward",
-        note: "Know the theory, and live it.",
-      },
+    via: "What is the relevance of this?",
+    tone: "#b0884a",
+    book: {
+      title: "Born to Win",
+      author: "Muriel James and Dorothy Jongeward",
+      note: "Dharma in practice.",
+    },
+    sides: [
       {
         title: "Games People Play",
         author: "Eric Berne",
-        note: "The transactional analysis Born to Win is built on.",
+        via: "The theory behind it",
+        note: "Transactional analysis, from the man who made it.",
       },
       {
         title: "Man's Search for Meaning",
         author: "Viktor E. Frankl",
+        via: "And why it matters",
         note: "A person can endure a great deal if life has a why.",
       },
     ],
   },
   {
-    id: "studies-begin",
-    heading: "Congratulations. The studies have finally begun.",
-    books: [
-      {
-        title: "Divine Initiation",
-        author: "Bhagavan Shri Shanmukha Anantha Natha",
-        note: "The lineage book of Vedic code, in two parts: sun and moon.",
-      },
+    via: "Congratulations! The studies have finally begun.",
+    tone: "#c4a24c",
+    book: {
+      title: "Divine Initiation",
+      author: "Bhagavan Shri Shanmukha Anantha Natha",
+      note: "The lineage book of Vedic code, in two parts: sun and moon.",
+    },
+    sides: [
       {
         title: "Third Eye of the Buddhist",
         author: "Bhagavan Shri Shanmukha Anantha Natha",
+        via: "Bonus round",
         note: "The same, the Buddhist version.",
-        bonus: true,
       },
     ],
   },
 ];
 
-export const branches: Shelf[] = [
+export const branches: Chain[] = [
   {
-    id: "mantra-and-sanskrit",
-    heading: "Mantra and Sanskrit",
+    label: "Mantra, prana",
+    tone: "#a8442f",
     books: [
       {
         title: "The Garland of Letters",
         author: "Sir John Woodroffe",
-        note: "How the science of mantra works.",
+        note: "This is how the science of mantra works.",
       },
       {
         title: "Parā-trīśikā-Vivaraṇa: The Secret of Tantric Mysticism",
         author: "Abhinavagupta, translated by Jaideva Singh",
-        note: "The same in traditional form, and in more detail.",
+        note: "And the same said in traditional form, in more detail.",
       },
       {
         title: "Vāc: The Concept of the Word in Selected Hindu Tantras",
@@ -196,7 +214,8 @@ export const branches: Shelf[] = [
       {
         title: "Introduction to Sanskrit, Part One",
         author: "Thomas Egenes",
-        note: "By now you know you have to learn Sanskrit.",
+        via: "I bet you've now realised",
+        note: "You have to learn Sanskrit.",
       },
       {
         title: "Devavāṇīpraveśikā: An Introduction to the Sanskrit Language",
@@ -211,8 +230,9 @@ export const branches: Shelf[] = [
     ],
   },
   {
-    id: "traditional-texts",
-    heading: "The traditional texts: Trika, Kaula and more",
+    label: "Trika, Kaula and the corpus",
+    lead: "The traditional texts themselves.",
+    tone: "#c79b3b",
     books: [
       {
         title: "Yogasūtrabhāṣyavivaraṇa of Śaṅkara",
@@ -222,7 +242,7 @@ export const branches: Shelf[] = [
       {
         title: "The Yoga Sūtras of Patañjali",
         author: "Edwin F. Bryant",
-        note: "The classical commentators, gathered in one readable volume.",
+        note: "The classical commentators, in one readable volume.",
       },
       {
         title: "Kulārṇava Tantra",
@@ -242,9 +262,9 @@ export const branches: Shelf[] = [
     ],
   },
   {
-    id: "hatha-texts",
-    heading: "Hatha yoga texts",
+    label: "Hatha yoga texts",
     lead: "The traditional sources for physical yoga: asana and the rest.",
+    tone: "#8f8a74",
     books: [
       {
         title: "Hatha Yoga Pradipika",
@@ -264,8 +284,8 @@ export const branches: Shelf[] = [
     ],
   },
   {
-    id: "medicine",
-    heading: "Traditional medicine",
+    label: "Traditional medicine",
+    tone: "#6e5a8f",
     books: [
       {
         title: "Ayurveda & Acupuncture",
@@ -286,10 +306,10 @@ export const branches: Shelf[] = [
   },
 ];
 
-export const around: Shelf[] = [
+export const around: Chain[] = [
   {
-    id: "body-and-breath",
-    heading: "Body and breath",
+    label: "Body and breath",
+    tone: "#7d8f5a",
     books: [
       {
         title: "Body, Mind, and Sport",
@@ -315,8 +335,8 @@ export const around: Shelf[] = [
     ],
   },
   {
-    id: "history",
-    heading: "History",
+    label: "History",
+    tone: "#8a6a4a",
     books: [
       {
         title: "Roots of Yoga",
@@ -346,8 +366,8 @@ export const around: Shelf[] = [
     ],
   },
   {
-    id: "myth",
-    heading: "Myth",
+    label: "Myth",
+    tone: "#9c5a6e",
     books: [
       {
         title: "Myths and Symbols in Indian Art and Civilization",
@@ -367,8 +387,8 @@ export const around: Shelf[] = [
     ],
   },
   {
-    id: "mind-and-meditation",
-    heading: "Mind and meditation",
+    label: "Mind and meditation",
+    tone: "#5f7f8f",
     books: [
       {
         title: "The Psychology of Kundalini Yoga",
