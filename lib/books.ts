@@ -240,11 +240,6 @@ export const branches: Chain[] = [
         note: "Patañjali's Yoga Sūtra, with traditional commentary.",
       },
       {
-        title: "The Yoga Sūtras of Patañjali",
-        author: "Edwin F. Bryant",
-        note: "The classical commentators, in one readable volume.",
-      },
-      {
         title: "Kulārṇava Tantra",
         author: "Introduction by Arthur Avalon, readings by M. P. Pandit",
         note: "The most cited text of kaula tantra.",
