@@ -288,9 +288,9 @@ export const branches: Chain[] = [
         note: "Indian traditional medicine.",
       },
       {
-        title: "Textbook of Ayurveda, Volume One: Fundamental Principles",
-        author: "Vasant Lad",
-        note: "The elements and the doshas, properly.",
+        title: "Aṣṭāṅga Hṛdayam",
+        author: "Vāgbhaṭa, translated by K. R. Srikantha Murthy",
+        note: "The heart of the eight branches. The classical text itself.",
       },
       {
         title: "The Web That Has No Weaver",
