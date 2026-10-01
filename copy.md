@@ -216,7 +216,7 @@ Asking reserves nothing and commits you to nothing. You decide after my reply.
 
 For personal guidance and initiation into the tradition: ancientscience.com
 
-Ancient Science OÜ · Registry code · VAT · address · email · phone (from `lib/company.ts`)
+Ancient Science OÜ · Company details (links to the seller's details at the top of the terms of sale; the address, phone and email from `lib/company.ts` appear only on the terms and privacy pages)
 
 Reading map · Terms of sale · Privacy · Withdraw from contract here
 
