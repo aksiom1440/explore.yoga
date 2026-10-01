@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, Newsreader } from "next/font/google";
-import { PROGRAM_NAME, formingLine } from "@/lib/intake";
+import { PROGRAM_NAME, intakeLine } from "@/lib/intake";
 import "./globals.css";
 
 const serif = Newsreader({
@@ -18,14 +18,16 @@ const ui = IBM_Plex_Sans({
   display: "swap",
 });
 
+const title = `${PROGRAM_NAME} with Miska Käppi`;
+const description = `Miska Käppi's ${PROGRAM_NAME}: what's underneath the body you can see. Over four hundred teachers have studied with him. ${intakeLine()}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://explore.yoga"),
   title: {
-    default: PROGRAM_NAME,
+    default: title,
     template: "%s · explore.yoga",
   },
-  description:
-    `${PROGRAM_NAME} with Miska Käppi. Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
+  description,
   applicationName: "explore.yoga",
   authors: [{ name: "Miska Käppi" }],
   openGraph: {
@@ -33,15 +35,13 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://explore.yoga",
     siteName: "explore.yoga",
-    title: `${PROGRAM_NAME} · explore.yoga`,
-    description:
-      `${PROGRAM_NAME} with Miska Käppi. Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
+    title,
+    description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${PROGRAM_NAME} · explore.yoga`,
-    description:
-      `${PROGRAM_NAME} with Miska Käppi. Four hundred teachers arrived here knowing exactly how to place a body. The training is about what's underneath it. ${formingLine()}`,
+    title,
+    description,
   },
   robots: { index: true, follow: true },
 };

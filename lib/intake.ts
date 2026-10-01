@@ -1,12 +1,25 @@
-/** Source of truth for the forming group. Keep the numbers in copy.md in sync. */
+/** Source of truth for the intake and the price. Keep copy.md in sync. */
 
 export const PROGRAM_NAME = "Yoga Teacher Training";
-export const GROUP_SIZE = 12;
-export const PLACES_LEFT = 12;
-export const PRICE_EUROS = 2900;
+/** Set to false while the next group is full. */
+export const INTAKE_OPEN = true;
+export const PRICE_EUROS = 2500;
+export const ENROL_EUROS = 1000;
+export const MONTHLY_EUROS = 380;
+export const MONTHS = 5;
 
-export function priceLine(amount = PRICE_EUROS): string {
-  return `${amount.toLocaleString("en-GB")} euros`;
+export const INSTALMENT_TOTAL = ENROL_EUROS + MONTHLY_EUROS * MONTHS;
+
+export function euros(amount: number): string {
+  return amount.toLocaleString("en-GB");
+}
+
+export function priceLine(): string {
+  return `${euros(PRICE_EUROS)} euros at once, or ${euros(INSTALMENT_TOTAL)} in ${word(MONTHS + 1)} payments`;
+}
+
+export function paymentLine(): string {
+  return `${euros(PRICE_EUROS)} euros at once, or ${euros(ENROL_EUROS)} euros to enrol and then ${euros(MONTHLY_EUROS)} a month for ${word(MONTHS)} months.`;
 }
 
 const WORDS = [
@@ -25,29 +38,21 @@ const WORDS = [
   "twelve",
 ] as const;
 
-function word(n: number): string {
+export function word(n: number): string {
   return WORDS[n] ?? String(n);
 }
 
-function cap(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
+export function intakeLine(open = INTAKE_OPEN): string {
+  return open
+    ? "Places are open for the next group."
+    : "The next group is full. Ask, and I will tell you when the one after it starts.";
 }
 
-export function formingLine(
-  size = GROUP_SIZE,
-  left = PLACES_LEFT,
-): string {
-  if (left <= 0) return "This group is full. The next one is opening.";
-  if (left >= size) return `A group of ${word(size)} is forming.`;
-  if (left === 1) return "One place left in the group that's forming.";
-  return `${cap(word(left))} places left in the group that's forming.`;
-}
+/** The newsletter box on the form. Stored word for word with each yes, as the record of consent. */
+export const NEWSLETTER_CONSENT =
+  "Also write to me now and then about the tradition and new groups. I can leave any time.";
 
 export const formNote = [
-  "I will email you how the training works, and the weekly live day and time.",
-  "This form does not reserve a place. You decide after that email.",
-  "The group starts when twelve people have taken a place.",
+  "I will write back with how the training runs, the day and time of the live sessions, and the earliest date you can start.",
+  "Asking reserves nothing and commits you to nothing. You decide after my reply.",
 ] as const;
-
-export const formSuccess =
-  "I will email you how the training works, and the weekly live day and time.";

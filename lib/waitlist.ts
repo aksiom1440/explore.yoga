@@ -1,42 +1,36 @@
 "use server";
 
-import { appendFile, mkdir } from "node:fs/promises";
-import path from "node:path";
 import { headers } from "next/headers";
-import { formSuccess } from "@/lib/intake";
+import {
+  EMAIL,
+  appendLocal,
+  ghlConfigured,
+  rateLimited,
+  recordInGhl,
+  splitName,
+} from "@/lib/delivery";
+import { NEWSLETTER_CONSENT } from "@/lib/intake";
 
-export type WaitlistState = {
-  ok: boolean;
-  message: string;
-} | null;
+type Fields = {
+  name: string;
+  email: string;
+  background: string;
+  newsletter: boolean;
+};
+
+/** Fields go back to the form so it can show who it heard from, or refill itself after an error. */
+export type WaitlistState =
+  | { ok: true; fields: Fields }
+  | { ok: false; message: string; fields: Fields }
+  | null;
 
 type Place = {
   email: string;
   name: string;
   background: string;
+  newsletter: boolean;
   source: string;
 };
-
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const seen = new Map<string, number>();
-
-function rateLimited(ip: string) {
-  const now = Date.now();
-  const last = seen.get(ip) ?? 0;
-  if (now - last < 4000) return true;
-  seen.set(ip, now);
-  return false;
-}
-
-function splitName(name: string) {
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  return {
-    firstName: parts[0] ?? "",
-    lastName: parts.slice(1).join(" "),
-  };
-}
-
-const GHL_VERSION = "2021-07-28";
 
 async function postJson(url: string, body: unknown, extra?: HeadersInit) {
   const res = await fetch(url, {
@@ -50,75 +44,21 @@ async function postJson(url: string, body: unknown, extra?: HeadersInit) {
 }
 
 async function deliverGhl(place: Place) {
-  const token = process.env.GHL_API_KEY;
-  const locationId = process.env.GHL_LOCATION_ID;
-  if (!token || !locationId) return;
-
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    Version: GHL_VERSION,
-    "Content-Type": "application/json",
-    "Location-Id": locationId,
-  };
-
-  const { firstName, lastName } = splitName(place.name);
-
-  const upsertRes = await fetch(
-    "https://services.leadconnectorhq.com/contacts/upsert",
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        locationId,
-        email: place.email,
-        name: place.name,
-        firstName,
-        lastName: lastName || undefined,
-        source: "explore.yoga",
-      }),
-    },
-  );
-  if (!upsertRes.ok) {
-    throw new Error(`ghl upsert ${upsertRes.status}`);
-  }
-
-  const data = (await upsertRes.json()) as { contact?: { id?: string } };
-  const id = data.contact?.id;
-  if (!id) {
-    throw new Error("ghl upsert missing id");
-  }
-
   const tags = ["explore.yoga waitlist", "explore.yoga place"];
   if (place.source === "hero" || place.source === "close") {
     tags.push(`waitlist-${place.source}`);
     tags.push(`place-${place.source}`);
   }
-
-  const tagRes = await fetch(
-    `https://services.leadconnectorhq.com/contacts/${id}/tags`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ tags }),
-    },
+  if (place.newsletter) tags.push("explore.yoga newsletter");
+  const consent = place.newsletter
+    ? `\n\nNewsletter: yes, ${new Date().toISOString()}, ticked "${NEWSLETTER_CONSENT}"`
+    : "";
+  // The contact is stored before the note; a missing note must not block the ask.
+  await recordInGhl(
+    place,
+    tags,
+    `Asked for a place (${place.source})\n\n${place.background}${consent}`,
   );
-  if (!tagRes.ok) {
-    throw new Error(`ghl tags ${tagRes.status}`);
-  }
-
-  const noteRes = await fetch(
-    `https://services.leadconnectorhq.com/contacts/${id}/notes`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        body: `Asked for a place (${place.source})\n\n${place.background}`,
-      }),
-    },
-  );
-  if (!noteRes.ok) {
-    // Contact is already stored; a missing note must not block the ask.
-  }
 }
 
 async function deliver(place: Place) {
@@ -128,10 +68,7 @@ async function deliver(place: Place) {
   const kitForm = process.env.KIT_FORM_ID;
   const ckKey = process.env.CONVERTKIT_API_KEY;
   const ckForm = process.env.CONVERTKIT_FORM_ID;
-  const ghlKey = process.env.GHL_API_KEY;
-  const ghlLocation = process.env.GHL_LOCATION_ID;
-
-  if (ghlKey && ghlLocation) {
+  if (ghlConfigured()) {
     jobs.push(deliverGhl(place));
   }
 
@@ -141,6 +78,7 @@ async function deliver(place: Place) {
         email: place.email,
         name: place.name,
         background: place.background,
+        newsletter: place.newsletter,
         source: place.source,
         list: "explore.yoga",
         intent: "place",
@@ -148,7 +86,8 @@ async function deliver(place: Place) {
     );
   }
 
-  if (kitKey && kitForm) {
+  // Kit and ConvertKit are mailing lists: only for those who ticked the box.
+  if (place.newsletter && kitKey && kitForm) {
     jobs.push(
       postJson(
         `https://api.kit.com/v4/forms/${kitForm}/subscribers`,
@@ -161,7 +100,7 @@ async function deliver(place: Place) {
     );
   }
 
-  if (ckKey && ckForm) {
+  if (place.newsletter && ckKey && ckForm) {
     jobs.push(
       postJson(`https://api.convertkit.com/v3/forms/${ckForm}/subscribe`, {
         api_key: ckKey,
@@ -176,46 +115,47 @@ async function deliver(place: Place) {
     return;
   }
 
-  const dir = process.env.VERCEL
-    ? "/tmp/explore-yoga"
-    : path.join(process.cwd(), "data");
-  await mkdir(dir, { recursive: true });
-  await appendFile(
-    path.join(dir, "waitlist.jsonl"),
-    `${JSON.stringify({ ...place, intent: "place", at: new Date().toISOString() })}\n`,
-  );
+  await appendLocal("waitlist.jsonl", {
+    ...place,
+    intent: "place",
+    at: new Date().toISOString(),
+  });
 }
 
 export async function joinWaitlist(
   _prev: WaitlistState,
   formData: FormData,
 ): Promise<WaitlistState> {
-  if (String(formData.get("website") ?? "")) {
-    return {
-      ok: true,
-      message: formSuccess,
-    };
-  }
-
   const email = String(formData.get("email") ?? "")
     .trim()
     .toLowerCase();
   const name = String(formData.get("name") ?? "").trim();
   const background = String(formData.get("background") ?? "").trim();
+  const newsletter = formData.get("newsletter") === "yes";
   const source = String(formData.get("source") ?? "unknown");
+  const fields = { name, email, background, newsletter };
+
+  if (String(formData.get("website") ?? "")) {
+    return { ok: true, fields };
+  }
 
   if (name.length < 2) {
-    return { ok: false, message: "A name helps me write back." };
+    return { ok: false, message: "A name helps me write back.", fields };
   }
 
   if (!EMAIL.test(email)) {
-    return { ok: false, message: "That doesn't look like an email address." };
+    return {
+      ok: false,
+      message: "That doesn't look like an email address.",
+      fields,
+    };
   }
 
   if (background.length < 12) {
     return {
       ok: false,
       message: "A line about you, then I can write back.",
+      fields,
     };
   }
 
@@ -223,16 +163,17 @@ export async function joinWaitlist(
     (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ??
     "local";
   if (rateLimited(ip)) {
-    return { ok: false, message: "Wait a moment, then try once more." };
+    return {
+      ok: false,
+      message: "Wait a moment, then try once more.",
+      fields,
+    };
   }
 
   try {
-    await deliver({ email, name, background, source });
-    return {
-      ok: true,
-      message: formSuccess,
-    };
+    await deliver({ email, name, background, newsletter, source });
+    return { ok: true, fields };
   } catch {
-    return { ok: false, message: "Couldn't send that. Try again." };
+    return { ok: false, message: "Couldn't send that. Try again.", fields };
   }
 }

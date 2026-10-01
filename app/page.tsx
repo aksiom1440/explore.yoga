@@ -1,29 +1,13 @@
 import Image from "next/image";
+import { Logo } from "@/components/logo";
+import { SiteFooter } from "@/components/site-footer";
 import { WaitlistForm } from "@/components/waitlist-form";
-import { PROGRAM_NAME, formingLine, formNote, priceLine } from "@/lib/intake";
-
-function Logo() {
-  return (
-    <Image
-      src="/logo.svg"
-      alt="explore.yoga"
-      width={807}
-      height={124}
-      priority
-      className="h-7 w-auto sm:h-8"
-    />
-  );
-}
-
-function FormNote() {
-  return (
-    <div className="mt-3 max-w-md space-y-2 font-serif text-[0.95rem] leading-relaxed text-quiet">
-      {formNote.map((line) => (
-        <p key={line}>{line}</p>
-      ))}
-    </div>
-  );
-}
+import {
+  PROGRAM_NAME,
+  intakeLine,
+  paymentLine,
+  priceLine,
+} from "@/lib/intake";
 
 function Rule() {
   return <div className="rule" aria-hidden="true" />;
@@ -45,28 +29,28 @@ const curriculum = [
 const learn = [
   {
     lead: "To read mind and body as one system.",
-    body: "Connective tissue is continuous. So is the argument about it. You stop treating a hip as a hip.",
+    body: "Connective tissue is one continuous web, and the tradition never split body from mind in the first place. You stop treating a hip as only a hip.",
   },
   {
     lead: "How to build an asana sequence from the ancient principles.",
-    body: "You build the sequence from the same principles the tradition uses for everything else.",
+    body: "The elements and doshas set the order, not habit. They are the same principles the tradition uses for everything else.",
   },
   {
     lead: "How to teach this to someone who came for a better backbend.",
     body: "Most won't ask you for prana. They can still feel that you help them in a way other teachers don't.",
   },
   {
-    lead: "How to hold a class that closes the conscious mind.",
-    body: "The thinking mind will run the room if you let it. You learn to build conditions where it stands down, so the student can change what sits underneath.",
+    lead: "How to hold a class where the thinking mind stands down.",
+    body: "The thinking mind will run the room if you let it. You learn to build the conditions where it goes quiet, so the student can change what sits underneath.",
   },
   {
     lead: "To know twenty times more than you say.",
-    body: "Even if you teach only asana, they can feel what you know and did not say.",
+    body: "Even if you only ever teach asana, your students feel what you know and leave unsaid.",
   },
 ];
 
 const comeIf = [
-  "you've taught for years and can still let a new model in",
+  "you've taught for years and are still open to a new model",
   "you're not planning to teach, which is how some of the best teachers I trained arrived",
   "you want the system around asana, not more asana",
   "you're willing to take the worldview with the practice",
@@ -113,14 +97,14 @@ export default function Home() {
                   see.
                 </h1>
                 <p className="prose-line mt-6 max-w-[42ch] text-[1.05rem] font-light leading-[1.55] text-ink/90 sm:mt-8 sm:max-w-[48ch] sm:text-xl sm:leading-[1.5]">
-                  Over four hundred yoga teachers have studied with me. They
-                  left seeing yoga differently, and they entered the tradition.
+                  This training is about what&apos;s underneath it. Over four
+                  hundred yoga teachers have studied with me.
                 </p>
                 <p className="mt-6 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal sm:mt-8">
                   <strong className="font-medium">{PROGRAM_NAME}</strong>
                 </p>
                 <p className="mt-2 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal">
-                  {formingLine()}
+                  {intakeLine()}
                 </p>
                 <p className="mt-2 font-ui text-[0.78rem] font-medium tracking-[0.06em] text-signal">
                   {priceLine()}
@@ -128,7 +112,6 @@ export default function Home() {
               </div>
               <div id="place" className="w-full max-w-xl pb-2 sm:pb-6">
                 <WaitlistForm source="hero" />
-                <FormNote />
               </div>
             </div>
           </div>
@@ -182,22 +165,36 @@ export default function Home() {
               How you enter
             </h2>
             <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
-              <p className="measure">The training is in session.</p>
               <p className="measure">
-                You join a group of twelve. When twelve people have taken a
-                place, that group starts. A new group of twelve opens the same
-                day.
+                The training is already running. New people start together, in
+                small groups. When you ask, I write back with the earliest date
+                you can start.
               </p>
               <p className="measure">
-                Live classes are once a week, at a set day and time, in
-                English. You get that day and time in the email, before you
-                take a place, so you can check it against your calendar.
+                It runs online for six months from the day your group starts,
+                in two-week steps. Each step is four hours of recorded lectures,
+                your own practice with online classes, and a live session. Your
+                practice starts on the first day.
               </p>
               <p className="measure">
-                The live room is mixed. People further along and people just
-                in work in the same session.
+                Six months hold about two hundred hours: lectures, online
+                classes, live sessions and teaching others, counted the way
+                200-hour trainings count them.
               </p>
-              <p className="measure">You finish when you can teach it.</p>
+              <p className="measure">
+                Live sessions are in English, at a set day and time, and last
+                one to two hours. You get the day and time in the email, before
+                you take a place, so you can check it against your calendar.
+                Every session is recorded. Everything in the training,
+                recordings included, is yours for those six months.
+              </p>
+              <p className="measure">
+                Some live sessions are for your group alone. Others bring
+                several groups together, so people who joined months ago and
+                people who joined this week are in the same session.
+              </p>
+              <p className="measure">{paymentLine()}</p>
+              <p className="measure">At the end, you can pass the system on.</p>
             </div>
           </section>
         </div>
@@ -227,13 +224,13 @@ export default function Home() {
             </h2>
             <div className="mt-10 space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
               <p className="measure">
-                The classical model is coherent, it is old, and it produces a
-                practice that hangs together. You can test every part of it
-                yourself.
+                The classical model is old and coherent, and you can test every
+                part of it yourself.
               </p>
               <p className="measure">
                 Modern research sits next to that model. I will tell you which
-                sentences are the tradition&apos;s, and which are mine.
+                claims are the tradition&apos;s, which come from research, and
+                which are mine.
               </p>
               <p className="measure">
                 Ask me for the source. That is my job.
@@ -245,6 +242,12 @@ export default function Home() {
             <h2 className="font-serif text-[1.65rem] font-light tracking-[-0.02em] sm:text-3xl">
               Who this is for, and who it isn&apos;t
             </h2>
+            <p className="prose-line measure mt-10 text-[1.08rem] font-light leading-[1.6]">
+              You don&apos;t need a practice background. A long practice
+              usually means a readier body and more to unlearn. A short one
+              usually means the practice is harder at first, and learning
+              something new is easy.
+            </p>
             <div className="mt-12 grid gap-14 sm:grid-cols-2 sm:gap-16">
               <div>
                 <h3 className="text-[1.2rem] font-medium tracking-[-0.015em]">
@@ -270,16 +273,16 @@ export default function Home() {
                     <strong className="font-medium">
                       you need a Yoga Alliance card for the gym.
                     </strong>{" "}
-                    Many of the best students I trained teach in gyms. I
-                    don&apos;t charge extra for the Alliance. I don&apos;t share
-                    their standards.
+                    Some gyms ask for one. I don&apos;t register with the
+                    Alliance: I don&apos;t share their standards, and I
+                    won&apos;t add their fee to your price. Many of the best
+                    students I trained teach in gyms anyway.
                   </li>
                   <li>
                     <strong className="font-medium">
                       you want it finished in a couple of months.
                     </strong>{" "}
-                    Becoming a yoga teacher in a couple of months is about as
-                    likely as becoming a violinist in a couple of months.
+                    Nobody becomes a violinist in a couple of months either.
                   </li>
                   <li>
                     <strong className="font-medium">
@@ -304,16 +307,46 @@ export default function Home() {
         <figure className="relative mx-auto w-full max-w-4xl px-5 sm:px-8 lg:px-12">
           <Image
             src="/latvia.jpeg"
-            alt="A training group in Latvia"
+            alt="Students waving in front of a thatched farmhouse"
             width={2000}
             height={1333}
             sizes="(max-width: 896px) 100vw, 896px"
             className="h-auto w-full"
           />
+          <figcaption className="mt-3 font-ui text-[0.78rem] tracking-[0.01em] text-quiet">
+            An earlier training group in Latvia.
+          </figcaption>
         </figure>
 
         <div className="mx-auto w-full max-w-3xl px-5 sm:px-8 lg:px-12">
           <section className="py-16 sm:py-24">
+            <h2 className="font-serif text-[1.65rem] font-light tracking-[-0.02em] sm:text-3xl">
+              Who teaches it
+            </h2>
+            <div className="mt-10 grid items-end gap-8 sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-10">
+              <Image
+                src="/miska.jpg"
+                alt="Miska Käppi"
+                width={1058}
+                height={1300}
+                sizes="(max-width: 640px) 60vw, 240px"
+                className="h-auto w-3/5 sm:w-full"
+              />
+              <div className="space-y-6 text-[1.12rem] font-light leading-[1.65] sm:text-[1.22rem] sm:leading-[1.6]">
+                <p className="measure">
+                  I&apos;m Miska Käppi. I grew up in Lapland, a sceptic raised
+                  on a strictly materialist picture of the world.
+                </p>
+                <p className="measure">
+                  I have studied yoga since 2006, in a tantric line since 2012
+                  and trained yoga teachers since 2014. I teach the whole
+                  training myself.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="border-t border-rule py-16 sm:py-24">
             <h2 className="font-serif text-[1.65rem] font-light tracking-[-0.02em] sm:text-3xl">
               One story
             </h2>
@@ -329,8 +362,8 @@ export default function Home() {
                 reasons. <em>Because Krishna said so.</em> Not good enough.
               </p>
               <p className="measure">
-                Then there were teachers who worked by principles I knew from
-                science. Who argued back. Who showed their sources.
+                The rest were teachers who worked by principles I knew from
+                science. They argued back. They showed their sources.
               </p>
               <p className="measure">
                 Sooner or later, every one of them said the same word.
@@ -344,7 +377,9 @@ export default function Home() {
                 wrong that was.
               </p>
               <p className="measure">
-                That&apos;s the direction I went. I&apos;m still going.
+                That&apos;s the direction I went, and I&apos;m still going.
+                This training is what I found along the way, in the order I
+                wish I had found it.
               </p>
             </div>
           </section>
@@ -355,30 +390,19 @@ export default function Home() {
               {PROGRAM_NAME}
             </p>
             <p className="prose-line measure mt-4 text-[1.12rem] font-light leading-[1.6] sm:text-[1.22rem]">
-              {formingLine()}
+              {intakeLine()}
             </p>
             <p className="prose-line measure mt-4 text-[1.12rem] font-light leading-[1.6] sm:text-[1.22rem]">
               {priceLine()}
             </p>
             <div className="mt-10 max-w-xl">
               <WaitlistForm source="close" />
-              <FormNote />
             </div>
           </section>
         </div>
       </main>
 
-      <footer className="px-5 pb-12 pt-4 sm:px-8 lg:px-12">
-        <p className="mx-auto max-w-3xl font-ui text-[0.78rem] leading-relaxed tracking-[0.01em] text-quiet">
-          For personal guidance and initiation into the tradition:{" "}
-          <a
-            href="https://ancientscience.com"
-            className="text-quiet underline decoration-rule underline-offset-4 transition-colors hover:text-ink"
-          >
-            ancientscience.com
-          </a>
-        </p>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

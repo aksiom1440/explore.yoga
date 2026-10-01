@@ -89,3 +89,42 @@ input[type="text"]::placeholder,
 textarea::placeholder {
   color: color-mix(in oklab, var(--quiet) 80%, var(--ink));
 }
+
+.legal {
+  max-width: 38rem;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.legal > h2 {
+  margin-top: 2.75rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.legal > p,
+.legal > ul {
+  margin-top: 0.9rem;
+}
+
+.legal > ul {
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+
+.legal > ul > li + li {
+  margin-top: 0.45rem;
+}
+
+.legal > p a,
+.legal > ul a {
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 4px;
+}
+
+.legal strong {
+  font-weight: 500;
+}
