@@ -36,7 +36,11 @@ async function send(prev: WaitlistState, formData: FormData) {
   return next;
 }
 
-export function WaitlistForm({ source }: { source: "hero" | "close" }) {
+export function WaitlistForm({
+  source,
+}: {
+  source: "hero" | "close" | "books";
+}) {
   const [state, action, pending] = useActionState<WaitlistState, FormData>(
     send,
     null,

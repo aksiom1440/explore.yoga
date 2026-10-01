@@ -9,6 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: "https://explore.yoga/books",
+      lastModified: new Date("2026-10-01"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: "https://explore.yoga/terms",
       lastModified: new Date("2026-10-01"),
       changeFrequency: "yearly",
