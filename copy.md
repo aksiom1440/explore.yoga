@@ -72,9 +72,9 @@ How you enter
 
 The training is already running. New people start together, in small groups. When you ask, I write back with the earliest date you can start.
 
-It runs online for six months from the day your group starts, in two-week steps. Each step is four hours of recorded lectures, your own practice with the practice videos, and a live session. Your practice starts on the first day.
+It runs online for six months from the day your group starts, in two-week steps. Each step is four hours of recorded lectures, your own practice with online classes, and a live session. Your practice starts on the first day.
 
-Six months hold about two hundred hours: lectures, practice with the videos, live sessions and teaching others, counted the way 200-hour trainings count them.
+Six months hold about two hundred hours: lectures, online classes, live sessions and teaching others, counted the way 200-hour trainings count them.
 
 Live sessions are in English, at a set day and time, and last one to two hours. You get the day and time in the email, before you take a place, so you can check it against your calendar. Every session is recorded. Everything in the training, recordings included, is yours for those six months.
 

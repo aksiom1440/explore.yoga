@@ -173,12 +173,12 @@ export default function Home() {
               <p className="measure">
                 It runs online for six months from the day your group starts,
                 in two-week steps. Each step is four hours of recorded lectures,
-                your own practice with the practice videos, and a live session.
-                Your practice starts on the first day.
+                your own practice with online classes, and a live session. Your
+                practice starts on the first day.
               </p>
               <p className="measure">
-                Six months hold about two hundred hours: lectures, practice with
-                the videos, live sessions and teaching others, counted the way
+                Six months hold about two hundred hours: lectures, online
+                classes, live sessions and teaching others, counted the way
                 200-hour trainings count them.
               </p>
               <p className="measure">

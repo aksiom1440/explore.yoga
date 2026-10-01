@@ -39,7 +39,7 @@ export default function Terms() {
           day your group starts.
         </li>
         <li>Twenty recorded lectures of two hours each, in two-week steps.</li>
-        <li>Practice videos, from the first day.</li>
+        <li>Online practice classes, from the first day.</li>
         <li>
           A live session every two weeks, one to two hours long, at a set day
           and time. Some are for your group alone; others bring several groups
