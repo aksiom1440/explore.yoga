@@ -3,12 +3,18 @@
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { headers } from "next/headers";
-import { formSuccess } from "@/lib/intake";
 
-export type WaitlistState = {
-  ok: boolean;
-  message: string;
-} | null;
+type Fields = {
+  name: string;
+  email: string;
+  background: string;
+};
+
+/** Fields go back to the form so it can show who it heard from, or refill itself after an error. */
+export type WaitlistState =
+  | { ok: true; fields: Fields }
+  | { ok: false; message: string; fields: Fields }
+  | null;
 
 type Place = {
   email: string;
@@ -190,32 +196,35 @@ export async function joinWaitlist(
   _prev: WaitlistState,
   formData: FormData,
 ): Promise<WaitlistState> {
-  if (String(formData.get("website") ?? "")) {
-    return {
-      ok: true,
-      message: formSuccess,
-    };
-  }
-
   const email = String(formData.get("email") ?? "")
     .trim()
     .toLowerCase();
   const name = String(formData.get("name") ?? "").trim();
   const background = String(formData.get("background") ?? "").trim();
   const source = String(formData.get("source") ?? "unknown");
+  const fields = { name, email, background };
+
+  if (String(formData.get("website") ?? "")) {
+    return { ok: true, fields };
+  }
 
   if (name.length < 2) {
-    return { ok: false, message: "A name helps me write back." };
+    return { ok: false, message: "A name helps me write back.", fields };
   }
 
   if (!EMAIL.test(email)) {
-    return { ok: false, message: "That doesn't look like an email address." };
+    return {
+      ok: false,
+      message: "That doesn't look like an email address.",
+      fields,
+    };
   }
 
   if (background.length < 12) {
     return {
       ok: false,
       message: "A line about you, then I can write back.",
+      fields,
     };
   }
 
@@ -223,16 +232,17 @@ export async function joinWaitlist(
     (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ??
     "local";
   if (rateLimited(ip)) {
-    return { ok: false, message: "Wait a moment, then try once more." };
+    return {
+      ok: false,
+      message: "Wait a moment, then try once more.",
+      fields,
+    };
   }
 
   try {
     await deliver({ email, name, background, source });
-    return {
-      ok: true,
-      message: formSuccess,
-    };
+    return { ok: true, fields };
   } catch {
-    return { ok: false, message: "Couldn't send that. Try again." };
+    return { ok: false, message: "Couldn't send that. Try again.", fields };
   }
 }

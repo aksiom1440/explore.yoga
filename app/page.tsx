@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { WaitlistForm } from "@/components/waitlist-form";
-import { PROGRAM_NAME, formingLine, formNote, priceLine } from "@/lib/intake";
+import { PROGRAM_NAME, formingLine, priceLine } from "@/lib/intake";
 
 function Logo() {
   return (
@@ -12,16 +12,6 @@ function Logo() {
       priority
       className="h-7 w-auto sm:h-8"
     />
-  );
-}
-
-function FormNote() {
-  return (
-    <div className="mt-3 max-w-md space-y-2 font-serif text-[0.95rem] leading-relaxed text-quiet">
-      {formNote.map((line) => (
-        <p key={line}>{line}</p>
-      ))}
-    </div>
   );
 }
 
@@ -128,7 +118,6 @@ export default function Home() {
               </div>
               <div id="place" className="w-full max-w-xl pb-2 sm:pb-6">
                 <WaitlistForm source="hero" />
-                <FormNote />
               </div>
             </div>
           </div>
@@ -362,7 +351,6 @@ export default function Home() {
             </p>
             <div className="mt-10 max-w-xl">
               <WaitlistForm source="close" />
-              <FormNote />
             </div>
           </section>
         </div>

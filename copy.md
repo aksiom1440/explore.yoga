@@ -35,8 +35,8 @@ your email
 what you've been teaching, or why you're writing
 
 **Under the form**
-I will email you how the training works, and the weekly live day and time.
-This form does not reserve a place. You decide after that email.
+I will write back with how the training runs and the day and time of the weekly live class.
+Asking reserves nothing and commits you to nothing. You decide after my reply.
 The group starts when twelve people have taken a place.
 
 ---
@@ -176,8 +176,8 @@ A group of twelve is forming.
 
 2,900 euros
 
-I will email you how the training works, and the weekly live day and time.
-This form does not reserve a place. You decide after that email.
+I will write back with how the training runs and the day and time of the weekly live class.
+Asking reserves nothing and commits you to nothing. You decide after my reply.
 The group starts when twelve people have taken a place.
 
 ---
@@ -188,9 +188,20 @@ For personal guidance and initiation into the tradition: ancientscience.com
 
 ---
 
+## After sending
+
+Replaces the form and the lines under it. The first name and the email come from what they typed.
+
+*Thank you, Anna. Your note reached me.*
+I will write to anna@example.com with how the training runs and the day and time of the weekly live class.
+Nothing is reserved yet, and you owe nothing. You decide once you have read it.
+If my reply hasn't arrived within two days, look in your spam folder.
+Wrong address? Send it again
+
+---
+
 ## Form messages
 
-I will email you how the training works, and the weekly live day and time.
 A name helps me write back.
 That doesn't look like an email address.
 A line about you, then I can write back.

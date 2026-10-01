@@ -44,10 +44,7 @@ export function formingLine(
 }
 
 export const formNote = [
-  "I will email you how the training works, and the weekly live day and time.",
-  "This form does not reserve a place. You decide after that email.",
-  "The group starts when twelve people have taken a place.",
+  "I will write back with how the training runs and the day and time of the weekly live class.",
+  "Asking reserves nothing and commits you to nothing. You decide after my reply.",
+  `The group starts when ${word(GROUP_SIZE)} people have taken a place.`,
 ] as const;
-
-export const formSuccess =
-  "I will email you how the training works, and the weekly live day and time.";

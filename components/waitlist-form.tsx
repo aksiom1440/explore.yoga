@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { formNote } from "@/lib/intake";
 import { joinWaitlist, type WaitlistState } from "@/lib/waitlist";
 
 const field =
@@ -11,83 +12,128 @@ export function WaitlistForm({ source }: { source: "hero" | "close" }) {
     joinWaitlist,
     null,
   );
+  const [reopened, setReopened] = useState<WaitlistState>(null);
+  const thanks = useRef<HTMLDivElement>(null);
+  const sent = state?.ok === true && state !== reopened ? state : null;
 
-  if (state?.ok) {
+  useEffect(() => {
+    if (sent) thanks.current?.focus();
+  }, [sent]);
+
+  if (sent) {
+    const firstName = sent.fields.name.split(/\s+/)[0];
     return (
-      <p className="font-serif text-[1.05rem] leading-snug text-ink italic">
-        {state.message}
-      </p>
+      <div ref={thanks} tabIndex={-1} className="max-w-md outline-none">
+        <p className="font-serif text-[1.3rem] leading-snug text-ink italic">
+          {firstName ? `Thank you, ${firstName}.` : "Thank you."} Your note
+          reached me.
+        </p>
+        <div className="mt-4 space-y-2 font-serif text-[0.95rem] leading-relaxed text-quiet">
+          <p>
+            I will write to{" "}
+            <span className="break-all text-ink">{sent.fields.email}</span> with
+            how the training runs and the day and time of the weekly live
+            class.
+          </p>
+          <p>
+            Nothing is reserved yet, and you owe nothing. You decide once you
+            have read it.
+          </p>
+          <p>
+            If my reply hasn&apos;t arrived within two days, look in your spam
+            folder.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setReopened(sent)}
+          className="mt-4 font-ui text-[0.78rem] tracking-[0.01em] text-quiet underline decoration-rule underline-offset-4 transition-colors hover:text-ink"
+        >
+          Wrong address? Send it again
+        </button>
+      </div>
     );
   }
 
   return (
-    <form action={action} className="w-full" noValidate>
-      <input
-        type="text"
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
-        aria-hidden="true"
-        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
-      />
-      <input type="hidden" name="source" value={source} />
-      <div className="flex w-full flex-col gap-2">
-        <label className="sr-only" htmlFor={`name-${source}`}>
-          Name
-        </label>
+    <>
+      <form action={action} className="w-full" noValidate>
         <input
-          id={`name-${source}`}
-          name="name"
           type="text"
-          autoComplete="name"
-          required
-          maxLength={80}
-          placeholder="your name"
-          disabled={pending}
-          className={`h-12 min-h-12 ${field}`}
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
         />
-        <label className="sr-only" htmlFor={`email-${source}`}>
-          Email
-        </label>
-        <input
-          id={`email-${source}`}
-          name="email"
-          type="email"
-          inputMode="email"
-          autoComplete="email"
-          required
-          placeholder="your email"
-          disabled={pending}
-          className={`h-12 min-h-12 ${field}`}
-        />
-        <label className="sr-only" htmlFor={`background-${source}`}>
-          About you
-        </label>
-        <textarea
-          id={`background-${source}`}
-          name="background"
-          required
-          rows={3}
-          maxLength={2000}
-          placeholder="what you've been teaching, or why you're writing"
-          disabled={pending}
-          className={`min-h-[5.5rem] resize-y py-3 ${field}`}
-        />
-        <div>
-          <button
-            type="submit"
+        <input type="hidden" name="source" value={source} />
+        <div className="flex w-full flex-col gap-2">
+          <label className="sr-only" htmlFor={`name-${source}`}>
+            Name
+          </label>
+          <input
+            id={`name-${source}`}
+            name="name"
+            type="text"
+            autoComplete="name"
+            required
+            maxLength={80}
+            placeholder="your name"
+            defaultValue={state?.fields.name}
             disabled={pending}
-            className="h-12 min-h-12 bg-paper px-5 font-ui text-[0.8rem] font-medium tracking-[0.04em] text-field transition-colors hover:bg-signal disabled:opacity-60 sm:px-6"
-          >
-            Ask for a place
-          </button>
+            className={`h-12 min-h-12 ${field}`}
+          />
+          <label className="sr-only" htmlFor={`email-${source}`}>
+            Email
+          </label>
+          <input
+            id={`email-${source}`}
+            name="email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            required
+            placeholder="your email"
+            defaultValue={state?.fields.email}
+            autoFocus={reopened !== null}
+            disabled={pending}
+            className={`h-12 min-h-12 ${field}`}
+          />
+          <label className="sr-only" htmlFor={`background-${source}`}>
+            About you
+          </label>
+          <textarea
+            id={`background-${source}`}
+            name="background"
+            required
+            rows={3}
+            maxLength={2000}
+            placeholder="what you've been teaching, or why you're writing"
+            defaultValue={state?.fields.background}
+            disabled={pending}
+            className={`min-h-[5.5rem] resize-y py-3 ${field}`}
+          />
+          <div>
+            <button
+              type="submit"
+              disabled={pending}
+              className="h-12 min-h-12 bg-paper px-5 font-ui text-[0.8rem] font-medium tracking-[0.04em] text-field transition-colors hover:bg-signal disabled:opacity-60 sm:px-6"
+            >
+              Ask for a place
+            </button>
+          </div>
         </div>
+        {state && !state.ok ? (
+          <p className="mt-3 font-ui text-sm text-signal" role="alert">
+            {state.message}
+          </p>
+        ) : null}
+      </form>
+      <div className="mt-3 max-w-md space-y-2 font-serif text-[0.95rem] leading-relaxed text-quiet">
+        {formNote.map((line) => (
+          <p key={line}>{line}</p>
+        ))}
       </div>
-      {state && !state.ok ? (
-        <p className="mt-3 font-ui text-sm text-signal" role="alert">
-          {state.message}
-        </p>
-      ) : null}
-    </form>
+    </>
   );
 }
